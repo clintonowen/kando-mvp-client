@@ -1,0 +1,50 @@
+nav {
+  background-color: lightgray;
+  position: fixed;
+  width: 100%
+}
+
+nav h1 {
+  display: block;
+  font-weight: 900;
+  font-size: 2em;
+  margin: 8px;
+  margin-left: auto;
+  margin-right: auto;
+  /* padding: 0.8em; */
+  text-align: center;
+  width: 110px;
+}
+
+nav ul {
+  right: 0px;
+  padding-left: 15px;
+  padding-right: 5px;
+  position: absolute;
+  top: 0px;
+}
+
+nav li {
+  display: inline-block;
+  margin-right: 15px;
+}
+
+nav li.menu-icon {
+  display: none;
+}
+
+@media screen and (max-width: 600px) {
+  nav li {
+    display: none;
+    margin-bottom: 15px;
+  }
+  nav li.menu-icon {
+    display: inline-block;
+  }
+  nav ul.responsive {
+    background-color: lightgray;
+  }
+  nav ul.responsive li {
+    display: block;
+  }
+}

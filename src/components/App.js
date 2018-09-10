@@ -1,9 +1,13 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-class App extends Component {
+import HeaderBar from './header-bar';
+
+class App extends React.Component {
   render() {
     return (
-      <div></div>
+      <div>
+        <HeaderBar />
+      </div>
     );
   }
 }
