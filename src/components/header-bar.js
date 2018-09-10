@@ -16,6 +16,10 @@ export class HeaderBar extends React.Component {
     }
   }
 
+  hideMenu() {
+    this.props.dispatch(hideNavMenu());
+  }
+
   render() {
     const responsive = this.props.showNavMenu ? 'responsive' : '';
     return (
@@ -29,8 +33,12 @@ export class HeaderBar extends React.Component {
             Menu
             </button>
           </li>
-          <li><Link to="/">Home</Link></li>
-          <li><Link to="/login">Login</Link></li>
+          <li>
+            <Link to="/" onClick={() => this.hideMenu()}>Home</Link>
+          </li>
+          <li>
+            <Link to="/login" onClick={() => this.hideMenu()}>Login</Link>
+          </li>
         </ul>
       </nav>
     );
