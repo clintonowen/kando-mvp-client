@@ -1,0 +1,15 @@
+.overview {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 52px;
+  max-width: 800px;
+  padding: 15px;
+}
+
+.overview h2 {
+  text-align: center;
+}
+
+.signup-link {
+  text-align: center;
+}
