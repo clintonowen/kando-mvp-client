@@ -1,0 +1,38 @@
+.login-form {
+  background-color: lightgray;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 100px;
+  max-width: 320px;
+  padding: 40px;
+  padding-top: 20px;
+}
+
+.login-form fieldset {
+  border: none;
+}
+
+.login-form legend {
+  text-align: center;
+}
+
+.login-form label {
+  display: block;
+  margin-top: 15px;
+}
+
+.login-form input {
+  /* border-style: inset; */
+  border: 1px inset gray;
+  margin-top: 5px;
+  height: 40px;
+  width: 100%;
+}
+
+.login-form button {
+  height: 40px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 36px;
+  width: 100%;
+}

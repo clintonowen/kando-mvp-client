@@ -46,7 +46,7 @@ export class HeaderBar extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  showNavMenu: state.showNavMenu
+  showNavMenu: state.activity.showNavMenu
 });
 
 export default withRouter(connect(mapStateToProps)(HeaderBar));

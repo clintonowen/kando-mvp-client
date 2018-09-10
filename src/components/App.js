@@ -4,6 +4,7 @@ import { Route } from 'react-router-dom';
 
 import HeaderBar from './header-bar';
 import LandingPage from './landing-page';
+import LoginForm from './login-form';
 
 class App extends React.Component {
   render() {
@@ -11,6 +12,7 @@ class App extends React.Component {
       <div>
         <HeaderBar />
         <Route exact path="/" component={LandingPage} />
+        <Route exact path="/login" component={LoginForm} />
       </div>
     );
   }
