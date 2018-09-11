@@ -4,6 +4,10 @@ import Column from './column';
 import './board.css';
 
 export class Board extends React.Component {
+  componentDidMount() {
+    
+  }
+
   render() {
 
     return (

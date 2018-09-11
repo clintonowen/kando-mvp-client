@@ -1,0 +1,10 @@
+.task {
+  background-color: lightgray;
+  border: 1px solid gray;
+  margin: 6px;
+  padding: 4px;
+}
+
+.task span {
+  font-size: 0.8em;
+}

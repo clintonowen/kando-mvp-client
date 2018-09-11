@@ -12,6 +12,7 @@
   "author": "Clinton Owen <clint@clintonowen.com>",
   "license": "GNU GPLv3",
   "dependencies": {
+    "moment": "^2.22.2",
     "normalize.css": "^8.0.0",
     "react": "^16.5.0",
     "react-dom": "^16.5.0",
