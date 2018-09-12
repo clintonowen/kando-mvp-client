@@ -10,7 +10,7 @@ import Board from './board';
 class App extends React.Component {
   render() {
     return (
-      <div>
+      <div id="app">
         <HeaderBar />
         <Route exact path="/" component={LandingPage} />
         <Route exact path="/login" component={LoginForm} />

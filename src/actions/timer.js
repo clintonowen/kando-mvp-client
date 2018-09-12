@@ -33,3 +33,13 @@ export const selectTask = (taskId) => ({
   type: SELECT_TASK,
   taskId
 });
+
+export const SHOW_TIMER_MENU = 'SHOW_TIMER_MENU';
+export const showTimerMenu = () => ({
+  type: SHOW_TIMER_MENU
+});
+
+export const HIDE_TIMER_MENU = 'HIDE_TIMER_MENU';
+export const hideTimerMenu = () => ({
+  type: HIDE_TIMER_MENU
+});

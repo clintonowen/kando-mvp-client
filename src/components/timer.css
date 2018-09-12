@@ -13,8 +13,34 @@
   border-bottom: 1px solid gray;
   margin-bottom: 8px;
   padding: 4px;
+  position: relative;
   text-align: center;
   width: 100%;
+}
+
+.timer header ul {
+  right: 0px;
+  padding-left: 15px;
+  padding-right: 15px;
+  position: absolute;
+  top: -14px;
+}
+
+.timer header li {
+  display: none;
+  margin-bottom: 8px;
+}
+
+.timer header li.menu-icon {
+  display: inline-block;
+}
+
+.timer header ul.responsive {
+  background-color: lightgray;
+}
+
+.timer header ul.responsive li {
+  display: block;
 }
 
 .timer p {

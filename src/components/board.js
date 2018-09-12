@@ -1,17 +1,29 @@
 import React from 'react';
 import {connect} from 'react-redux';
-// import {fetchColumns} from '../actions/board-data';
+import {fetchColumns, fetchTasks} from '../actions/board-data';
 import Column from './column';
 import './board.css';
 
 export class Board extends React.Component {
   componentDidMount() {
-    // return this.props.dispatch(fetchColumns());
+    this.props.dispatch(fetchColumns());
+    this.props.dispatch(fetchTasks());
   }
 
   render() {
+    let columns;
     if (this.props.columns) {
-
+      columns = this.props.columns
+        .map(column => {
+          return (
+            <Column
+              key={column.id}
+              name={column.name}
+              columnId={column.id}
+              showTimer={column.showTimer}
+            />
+          );
+        });
     }
     let dimOverlay;
     if (this.props.selectStatus === 'started') {
@@ -21,7 +33,7 @@ export class Board extends React.Component {
       <div className="board-wrapper">
         {dimOverlay}
         <main className="board">
-          <Column columnId="111111111111111111111101"/>
+          {columns}
         </main>
       </div>
     );
@@ -29,7 +41,7 @@ export class Board extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  // columns: state.boardData.columns
+  columns: state.boardData.columns,
   selectStatus: state.timer.selectStatus
 });
 

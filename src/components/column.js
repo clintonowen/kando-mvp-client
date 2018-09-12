@@ -48,8 +48,7 @@ export class Column extends React.Component {
 
 const mapStateToProps = state => ({
   tasks: state.boardData.tasks,
-  selectedTask: state.timer.selectedTask,
-  showTimer: true
+  selectedTask: state.timer.selectedTask
 });
 
 export default connect(mapStateToProps)(Column);

@@ -1,8 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import moment from 'moment';
-import { startTimer, stopTimer, resetTimer, timerTick, startSelect, stopSelect } from '../actions/timer';
-import { updateTime, sendTime } from '../actions/board-data';
+import { startTimer, stopTimer, resetTimer, timerTick, startSelect, stopSelect, showTimerMenu, hideTimerMenu } from '../actions/timer';
+import { updateTime, sendTime, unsetTimerColumn } from '../actions/board-data';
 import './timer.css';
 
 export class Timer extends React.Component {
@@ -31,6 +31,17 @@ export class Timer extends React.Component {
   }
   handleStopSelect() {
     this.props.dispatch(stopSelect());
+  }
+  toggleMenu() {
+    if (this.props.showTimerMenu) {
+      this.props.dispatch(hideTimerMenu());
+    } else {
+      this.props.dispatch(showTimerMenu());
+    }
+  }
+  hideTimer() {
+    this.props.dispatch(unsetTimerColumn());
+    this.props.dispatch(hideTimerMenu());
   }
   render() {
     let timeLeft = moment(this.props.timeLeft).format('mm:ss');
@@ -64,13 +75,26 @@ export class Timer extends React.Component {
         .filter(task => task.id === this.props.selectedTask)[0]['name'];
     }
 
-    let taskStyle = {color: 'maroon'};
+    const responsive = this.props.showTimerMenu ? 'responsive' : '';
 
     return (
       <section className="timer">
-        <header>Pomodoro Timer</header>
+        <header>
+          Pomodoro Timer
+          <ul className={responsive}>
+            <li className="menu-icon">
+              <button onClick={() => this.toggleMenu()}>
+                Menu
+              </button>
+            </li>
+            <li>
+              <a href="#app" onClick={() => this.hideTimer()}>Hide</a>
+            </li>
+          </ul>
+          
+        </header>
         {selectButton}
-        <p className="task-selected">Task Selected: <span style={taskStyle}>{taskName ? taskName : 'None'}</span></p>
+        <p className="task-selected">Task Selected: <span style={{color: 'maroon'}}>{taskName ? taskName : 'None'}</span></p>
         <p className="time-left">{timeLeft}</p>
         {timerButton}
       </section>
@@ -84,7 +108,8 @@ const mapStateToProps = state => ({
   timerStatus: state.timer.timerStatus,
   selectStatus: state.timer.selectStatus,
   selectedTask: state.timer.selectedTask,
-  tasks: state.boardData.tasks
+  tasks: state.boardData.tasks,
+  showTimerMenu: state.timer.showTimerMenu
 });
 
 export default connect(mapStateToProps)(Timer);

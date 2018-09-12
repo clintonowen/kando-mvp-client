@@ -5,7 +5,9 @@ import {
   TIMER_TICK,
   START_SELECT,
   STOP_SELECT,
-  SELECT_TASK
+  SELECT_TASK,
+  SHOW_TIMER_MENU,
+  HIDE_TIMER_MENU
 } from '../actions/timer';
 
 const initialState = {
@@ -13,7 +15,8 @@ const initialState = {
   timeElapsed: 0,
   timerStatus: 'stopped',
   selectStatus: 'stopped',
-  selectedTask: null
+  selectedTask: null,
+  showTimerMenu: false
 };
 
 export default (state=initialState, action) => {
@@ -52,6 +55,16 @@ export default (state=initialState, action) => {
     return Object.assign({}, state, {
       selectedTask: action.taskId
     })
+  }
+  if (action.type === SHOW_TIMER_MENU) {
+    return Object.assign({}, state, {
+      showTimerMenu: true
+    });
+  }
+  if (action.type === HIDE_TIMER_MENU) {
+    return Object.assign({}, state, {
+      showTimerMenu: false
+    });
   }
   return state;
 };

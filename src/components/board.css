@@ -18,7 +18,7 @@
 }
 
 .dim-overlay {
-  background-color: rgba(0,0,0,0.5);
+  background-color: rgba(0,0,0,0.35);
   height: calc(100vh - 52px);
   left: 0px;
   position: absolute;
