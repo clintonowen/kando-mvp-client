@@ -6,7 +6,8 @@ import './task.css';
 export class Task extends React.Component {
   render() {
     let timeSpent;
-    if (this.props.time > 0) {
+    let classes = 'task';
+    if (this.props.time) {
       let duration;
       const time = moment.duration(this.props.time);
       const hours = Math.floor(time.asHours());
@@ -18,8 +19,11 @@ export class Task extends React.Component {
       }
       timeSpent = <span>Time spent: {duration}</span>
     }
+    if (this.props.selected === true) {
+      classes += ' selected';
+    }
     return (
-      <section className="task">
+      <section className={classes}>
         <header>{this.props.name}</header>
         {timeSpent}
       </section>

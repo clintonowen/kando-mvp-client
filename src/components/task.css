@@ -8,3 +8,7 @@
 .task span {
   font-size: 0.8em;
 }
+
+.selected {
+  border: 2px dashed maroon;
+}
