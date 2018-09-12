@@ -18,6 +18,16 @@ export const timerTick = () => ({
   type: TIMER_TICK
 });
 
+export const START_SELECT = 'START_SELECT';
+export const startSelect = () => ({
+  type: START_SELECT
+});
+
+export const STOP_SELECT = 'STOP_SELECT';
+export const stopSelect = () => ({
+  type: STOP_SELECT
+});
+
 export const SELECT_TASK = 'SELECT_TASK';
 export const selectTask = (taskId) => ({
   type: SELECT_TASK,

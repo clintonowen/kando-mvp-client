@@ -3,6 +3,8 @@ import {
   STOP_TIMER,
   RESET_TIMER,
   TIMER_TICK,
+  START_SELECT,
+  STOP_SELECT,
   SELECT_TASK
 } from '../actions/timer';
 
@@ -10,7 +12,8 @@ const initialState = {
   timeLeft: 25 * 60 * 1000,
   timeElapsed: 0,
   timerStatus: 'stopped',
-  selectedTask: "222222222222222222222201"
+  selectStatus: 'stopped',
+  selectedTask: null
 };
 
 export default (state=initialState, action) => {
@@ -33,6 +36,16 @@ export default (state=initialState, action) => {
     return Object.assign({}, state, {
       timeLeft: state.timeLeft - 1000,
       timeElapsed: state.timeElapsed + 1000
+    });
+  }
+  if (action.type === START_SELECT) {
+    return Object.assign({}, state, {
+      selectStatus: 'started'
+    });
+  }
+  if (action.type === STOP_SELECT) {
+    return Object.assign({}, state, {
+      selectStatus: 'stopped'
     });
   }
   if (action.type === SELECT_TASK) {

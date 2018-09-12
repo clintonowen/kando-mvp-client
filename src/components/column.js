@@ -10,17 +10,22 @@ export class Column extends React.Component {
   componentDidMount() {
     return this.props.dispatch(fetchTasks());
   }
-
   render() {
     let tasks;
     let timer;
     if (this.props.tasks) {
       tasks = this.props.tasks
         .filter(task => task.columnId === this.props.columnId)
-        .map((task, index) => {
+        .map((task) => {
           const selected = (task.id === this.props.selectedTask) ? true : false;
           return (
-            <Task name={task.name} time={task.time} key={index} selected={selected}/>
+            <Task
+              key={task.id}
+              name={task.name}
+              time={task.time}
+              selected={selected}
+              taskId={task.id}
+            />
           );
         }
       );

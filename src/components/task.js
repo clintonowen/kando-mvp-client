@@ -1,9 +1,16 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import moment from 'moment';
+import { selectTask, stopSelect } from '../actions/timer';
 import './task.css';
 
 export class Task extends React.Component {
+  handleTaskClick(taskId) {
+    if (this.props.selectStatus === 'started') {
+      this.props.dispatch(selectTask(taskId));
+      this.props.dispatch(stopSelect());
+    }
+  }
   render() {
     let timeSpent;
     let classes = 'task';
@@ -23,7 +30,10 @@ export class Task extends React.Component {
       classes += ' selected';
     }
     return (
-      <section className={classes}>
+      <section
+        className={classes}
+        onClick={() => this.handleTaskClick(this.props.taskId)}
+      >
         <header>{this.props.name}</header>
         {timeSpent}
       </section>
@@ -32,7 +42,7 @@ export class Task extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  
+  selectStatus: state.timer.selectStatus
 });
 
 export default connect(mapStateToProps)(Task);

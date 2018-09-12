@@ -16,3 +16,13 @@
   max-width: 400px;
   padding: 0px;
 }
+
+.dim-overlay {
+  background-color: rgba(0,0,0,0.5);
+  height: calc(100vh - 52px);
+  left: 0px;
+  position: absolute;
+  top: 52px;
+  width: 100%;
+  z-index: 1;
+}

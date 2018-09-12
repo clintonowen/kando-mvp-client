@@ -13,8 +13,13 @@ export class Board extends React.Component {
     if (this.props.columns) {
 
     }
+    let dimOverlay;
+    if (this.props.selectStatus === 'started') {
+      dimOverlay = <div className="dim-overlay"></div>
+    }
     return (
       <div className="board-wrapper">
+        {dimOverlay}
         <main className="board">
           <Column columnId="111111111111111111111101"/>
         </main>
@@ -25,6 +30,7 @@ export class Board extends React.Component {
 
 const mapStateToProps = state => ({
   // columns: state.boardData.columns
+  selectStatus: state.timer.selectStatus
 });
 
 export default connect(mapStateToProps)(Board);

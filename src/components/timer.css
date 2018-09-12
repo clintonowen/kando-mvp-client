@@ -21,6 +21,11 @@
   margin: 8px;
 }
 
+.select-button {
+  position: relative;
+  z-index: 10;
+}
+
 .task-selected {
   white-space: nowrap;
   overflow: hidden;
