@@ -1,0 +1,7 @@
+.task-form {
+  border: 1px solid gray;
+  margin: 6px;
+  margin-top: 0px;
+  padding: 4px;
+  width: calc(100% - 12px);
+}

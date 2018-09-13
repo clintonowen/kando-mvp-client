@@ -8,9 +8,14 @@ export const stopTimer = () => ({
   type: STOP_TIMER
 });
 
-export const RESET_TIMER = 'RESET_TIMER';
-export const resetTimer = () => ({
-  type: RESET_TIMER
+export const BREAK_TIME = 'BREAK_TIME';
+export const breakTime = () => ({
+  type: BREAK_TIME
+});
+
+export const START_BREAK = 'START_BREAK';
+export const startBreak = () => ({
+  type: START_BREAK
 });
 
 export const TIMER_TICK = 'TIMER_TICK';

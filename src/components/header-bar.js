@@ -1,6 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
+import { clearAuth } from '../actions/auth';
+import { clearAuthToken } from '../local-storage';
 import { showNavMenu, hideNavMenu } from '../actions/activity';
 import { setTimerColumn, unsetTimerColumn } from '../actions/board-data';
 import './header-bar.css';
@@ -28,7 +30,8 @@ export class HeaderBar extends React.Component {
     }
   }
   handleLogOut() {
-
+    this.props.dispatch(clearAuth());
+    clearAuthToken();
   }
   render() {
     const responsive = this.props.showNavMenu ? 'responsive' : '';

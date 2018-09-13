@@ -1,8 +1,12 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { Link, Redirect } from 'react-router-dom';
 import './landing-page.css';
 
-export default function LandingPage() {
+export function LandingPage(props) {
+  if (props.loggedIn) {
+    return <Redirect to="/board" />;
+  }
   return (
     <div className="overview">
       <h2>
@@ -20,3 +24,9 @@ export default function LandingPage() {
     </div>
   );
 }
+
+const mapStateToProps = state => ({
+  loggedIn: state.auth.currentUser !== null
+});
+
+export default connect(mapStateToProps)(LandingPage);

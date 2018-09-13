@@ -29,6 +29,9 @@ export class Task extends React.Component {
     if (this.props.selected === true) {
       classes += ' selected';
     }
+    if (this.props.selectStatus === 'started') {
+      classes += ' bright'
+    }
     return (
       <section
         className={classes}

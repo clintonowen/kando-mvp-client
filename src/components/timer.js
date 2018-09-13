@@ -1,30 +1,50 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import moment from 'moment';
-import { startTimer, stopTimer, resetTimer, timerTick, startSelect, stopSelect, showTimerMenu, hideTimerMenu } from '../actions/timer';
+import { startTimer, stopTimer, timerTick, startSelect, stopSelect, 
+  showTimerMenu, hideTimerMenu, breakTime, startBreak } from '../actions/timer';
 import { updateTime, sendTime, unsetTimerColumn } from '../actions/board-data';
 import './timer.css';
 
 export class Timer extends React.Component {
   componentWillUnmount() {
-    clearInterval(this.timerInterval);
+    this.handleClearTimers();
   }
-  handleClickStart() {
+  handleStartTimer() {
+    this.handleClearTimers();
+    this.props.dispatch(startTimer());
     this.timerInterval = setInterval(() => {
       this.props.dispatch(timerTick());
       if (this.props.timeElapsed % 60000 === 0) {
         this.props.dispatch(updateTime(this.props.selectedTask));
         this.props.dispatch(sendTime(this.props.selectedTask, this.props.tasks));
+        if (this.props.timeLeft <= 0) {
+          this.handleClearTimers();
+          this.handleBreaktime();
+        }
       }
-    }, 50);
-    this.props.dispatch(startTimer());
+    }, 10);
   }
-  handleClickStop() {
+  handleBreaktime() {
+    this.props.dispatch(breakTime());
+  }
+  handleStartBreak() {
+    this.handleClearTimers();
+    this.props.dispatch(startBreak());
+    this.breakInterval = setInterval(() => {
+      this.props.dispatch(timerTick());
+      if (this.props.timeLeft <= 0) {
+        this.handleClearTimers();
+      }
+    }, 5);
+  }
+  handleClearTimers() {
     clearInterval(this.timerInterval);
-    this.props.dispatch(stopTimer());
+    clearInterval(this.breakInterval);
   }
-  handleReset() {
-    this.props.dispatch(resetTimer());
+  handleStopTimer() {
+    this.handleClearTimers();
+    this.props.dispatch(stopTimer());
   }
   handleStartSelect() {
     this.props.dispatch(startSelect());
@@ -63,10 +83,12 @@ export class Timer extends React.Component {
     }
 
     let timerButton = <button disabled>Start</button>
-    if (this.props.selectedTask && this.props.timerStatus === 'stopped') {
-      timerButton = <button onClick={() => this.handleClickStart()}>Start</button>;
-    } else if (this.props.selectedTask && this.props.timerStatus === 'started') {
-      timerButton = <button onClick={() => this.handleClickStop()}>Stop</button>
+    if (this.props.selectedTask && (this.props.timerStatus === 'stopped' || this.props.timerStatus === 'onBreak')) {
+      timerButton = <button onClick={() => this.handleStartTimer()}>Start</button>;
+    } else if (this.props.selectedTask && (this.props.timerStatus === 'started' || this.props.timerStatus === 'onBreak')) {
+      timerButton = <button onClick={() => this.handleStopTimer()}>Stop</button>
+    } else if (this.props.timerStatus === 'breakTime') {
+      timerButton = <button onClick={() => this.handleStartBreak()}>Break</button>
     }
 
     let taskName;
@@ -94,7 +116,11 @@ export class Timer extends React.Component {
           
         </header>
         {selectButton}
-        <p className="task-selected">Task Selected: <span style={{color: 'maroon'}}>{taskName ? taskName : 'None'}</span></p>
+        <p className="task-selected">
+          Task Selected: <span
+            style={{color: 'maroon'}}> {taskName ? taskName : 'None'}
+            </span>
+        </p>
         <p className="time-left">{timeLeft}</p>
         {timerButton}
       </section>

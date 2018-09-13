@@ -1,16 +1,21 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import {connect} from 'react-redux';
+import { Link, Redirect } from 'react-router-dom';
 import { Field, reduxForm, focus } from 'redux-form';
-import {required, nonEmpty} from '../validators';
 import Input from './input';
+import { login } from '../actions/auth';
+import { required, nonEmpty } from '../validators';
 import './login-form.css';
 
 export class LoginForm extends React.Component {
   onSubmit(values){
-    // return this.props.dispatch(login(values.username, values.password));
+    return this.props.dispatch(login(values.username, values.password));
   }
   
   render() {
+    if (this.props.loggedIn) {
+      return <Redirect to="/board" />;
+    }
     let error;
     if (this.props.error) {
       error = (
@@ -55,6 +60,12 @@ export class LoginForm extends React.Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  loggedIn: state.auth.currentUser !== null
+});
+
+LoginForm = connect(mapStateToProps)(LoginForm);
 
 export default reduxForm({
   form: 'login',

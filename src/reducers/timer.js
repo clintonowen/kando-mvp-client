@@ -1,16 +1,20 @@
 import {
   START_TIMER,
   STOP_TIMER,
-  RESET_TIMER,
   TIMER_TICK,
   START_SELECT,
   STOP_SELECT,
   SELECT_TASK,
   SHOW_TIMER_MENU,
-  HIDE_TIMER_MENU
+  HIDE_TIMER_MENU,
+  BREAK_TIME,
+  START_BREAK
 } from '../actions/timer';
 
 const initialState = {
+  workTime: 25 * 60 * 1000,
+  breakTime: 5 * 60 * 1000,
+  longBreakTime: 15 * 60 * 1000,
   timeLeft: 25 * 60 * 1000,
   timeElapsed: 0,
   timerStatus: 'stopped',
@@ -22,18 +26,29 @@ const initialState = {
 export default (state=initialState, action) => {
   if (action.type === START_TIMER) {
     return Object.assign({}, state, {
+      timeLeft: state.workTime,
+      timeElapsed: 0,
       timerStatus: 'started'
     });
   }
   if (action.type === STOP_TIMER) {
     return Object.assign({}, state, {
-      timeLeft: 25 * 60 * 1000,
+      timeLeft: state.workTime,
       timeElapsed: 0,
       timerStatus: 'stopped'
     });
   }
-  if (action.type === RESET_TIMER) {
-    return Object.assign({}, state, initialState);
+  if (action.type === BREAK_TIME) {
+    return Object.assign({}, state, {
+      timerStatus: 'breakTime'
+    });
+  }
+  if (action.type === START_BREAK) {
+    return Object.assign({}, state, {
+      timeLeft: state.breakTime,
+      timeElapsed: 0,
+      timerStatus: 'onBreak'
+    });
   }
   if (action.type === TIMER_TICK && state.timeLeft > 0) {
     return Object.assign({}, state, {

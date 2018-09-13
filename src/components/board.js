@@ -1,5 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import requiresLogin from './requires-login';
 import {fetchColumns, fetchTasks} from '../actions/board-data';
 import Column from './column';
 import './board.css';
@@ -21,6 +22,7 @@ export class Board extends React.Component {
               name={column.name}
               columnId={column.id}
               showTimer={column.showTimer}
+              showTaskForm={column.showTaskForm}
             />
           );
         });
@@ -45,4 +47,4 @@ const mapStateToProps = state => ({
   selectStatus: state.timer.selectStatus
 });
 
-export default connect(mapStateToProps)(Board);
+export default requiresLogin()(connect(mapStateToProps)(Board));

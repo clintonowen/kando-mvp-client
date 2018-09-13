@@ -1,13 +1,14 @@
 import {
   FETCH_COLUMNS_SUCCESS,
-  FETCH_COLUMNS_ERROR,
   FETCH_TASKS_SUCCESS,
-  FETCH_TASKS_ERROR,
+  SHOW_TASK_FORM,
+  HIDE_TASK_FORM,
   SET_TIMER_COLUMN,
   UNSET_TIMER_COLUMN,
   UPDATE_TIME, 
   SEND_TIME_SUCCESS,
-  SEND_TIME_ERROR
+  ADD_TASK_SUCCESS,
+  FETCH_ERROR
 } from '../actions/board-data';
 
 const initialState = {
@@ -24,20 +25,32 @@ export default function reducer(state = initialState, action) {
       error: null
     });
   }
-  if (action.type === FETCH_COLUMNS_ERROR) {
-    return Object.assign({}, state, {
-      error: action.error
-    });
-  }
   if (action.type === FETCH_TASKS_SUCCESS) {
     return Object.assign({}, state, {
       tasks: action.data,
       error: null
     });
   }
-  if (action.type === FETCH_TASKS_ERROR) {
+  if (action.type === SHOW_TASK_FORM) {
     return Object.assign({}, state, {
-      error: action.error
+      columns: state.columns.map(column => {
+        if (column.id === action.columnId) {
+          return Object.assign({}, column, { showTaskForm: true })
+        } else {
+          return column;
+        }
+      })
+    });
+  }
+  if (action.type === HIDE_TASK_FORM) {
+    return Object.assign({}, state, {
+      columns: state.columns.map(column => {
+        if (column.id === action.columnId) {
+          return Object.assign({}, column, { showTaskForm: false })
+        } else {
+          return column;
+        }
+      })
     });
   }
   if (action.type === SET_TIMER_COLUMN) {
@@ -82,7 +95,14 @@ export default function reducer(state = initialState, action) {
       error: null
     });
   }
-  if (action.type === SEND_TIME_ERROR) {
+  if (action.type === ADD_TASK_SUCCESS) {
+    const task = action.data;
+    return Object.assign({}, state, {
+      tasks: [...state.tasks, task],
+      error: null
+    });
+  }
+  if (action.type === FETCH_ERROR) {
     return Object.assign({}, state, {
       error: action.error
     });
