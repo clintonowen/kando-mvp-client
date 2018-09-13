@@ -11,6 +11,8 @@ import {
   FETCH_ERROR
 } from '../actions/board-data';
 
+import { CLEAR_AUTH } from '../actions/auth';
+
 const initialState = {
   columns: '',
   tasks: '',
@@ -18,10 +20,12 @@ const initialState = {
 };
 
 export default function reducer(state = initialState, action) {
+  if (action.type === CLEAR_AUTH) {
+    return Object.assign({}, state, initialState);
+  }
   if (action.type === FETCH_COLUMNS_SUCCESS) {
     return Object.assign({}, state, {
-      columns: action.data
-        .filter(column => column.id === "111111111111111111111101"),
+      columns: [action.data[0]],
       error: null
     });
   }

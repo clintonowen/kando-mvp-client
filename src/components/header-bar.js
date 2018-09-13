@@ -30,6 +30,7 @@ export class HeaderBar extends React.Component {
     }
   }
   handleLogOut() {
+    this.hideMenu();
     this.props.dispatch(clearAuth());
     clearAuthToken();
   }

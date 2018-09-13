@@ -11,6 +11,8 @@ import {
   START_BREAK
 } from '../actions/timer';
 
+import { CLEAR_AUTH } from '../actions/auth';
+
 const initialState = {
   workTime: 25 * 60 * 1000,
   breakTime: 5 * 60 * 1000,
@@ -24,6 +26,9 @@ const initialState = {
 };
 
 export default (state=initialState, action) => {
+  if (action.type === CLEAR_AUTH) {
+    return Object.assign({}, state, initialState);
+  }
   if (action.type === START_TIMER) {
     return Object.assign({}, state, {
       timeLeft: state.workTime,
