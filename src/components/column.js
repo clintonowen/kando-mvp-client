@@ -41,13 +41,15 @@ export class Column extends React.Component {
       addTask = <TaskForm columnId={this.props.columnId} />
     }
     return (
-      <div className="col-container">
-        <section className="column">
-          <header className="col-header">To Do</header>
-          {tasks}
-          {addTask}
-        </section>
-        {timer}
+      <div className="col-horz-flex-container">
+        <div className="col-vert-flex-container">
+          <section className="column">
+            <header className="col-header">{this.props.name}</header>
+            {tasks}
+            {addTask}
+          </section>
+          {timer}
+        </div>
       </div>
     );
   }

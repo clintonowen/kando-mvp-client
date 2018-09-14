@@ -35,7 +35,9 @@ export class Board extends React.Component {
       <div className="board-wrapper">
         {dimOverlay}
         <main className="board">
+          <div className="left-center-columns"></div>
           {columns}
+          <div className="right-center-columns"></div>
         </main>
       </div>
     );

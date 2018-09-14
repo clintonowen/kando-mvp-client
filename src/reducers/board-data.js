@@ -25,7 +25,7 @@ export default function reducer(state = initialState, action) {
   }
   if (action.type === FETCH_COLUMNS_SUCCESS && action.data.length > 0) {
     return Object.assign({}, state, {
-      columns: [action.data[0]],
+      columns: action.data,
       error: null
     });
   }
