@@ -2,10 +2,12 @@
   border: 1px solid gray;
   flex: 0 0 170px;
   margin: 3px;
+  margin-left: auto;
+  margin-right: auto;
   padding: 0px;
   padding-bottom: 4px;
   text-align: center;
-  width: 400px;
+  width: 100%;
 }
 
 .timer header {
@@ -20,10 +22,11 @@
 
 .timer header ul {
   right: 0px;
-  padding-left: 15px;
-  padding-right: 15px;
+  padding-left: 1px;
+  padding-right: 1px;
   position: absolute;
-  top: -14px;
+  text-align: center;
+  top: -15px;
 }
 
 .timer header li {
@@ -33,6 +36,10 @@
 
 .timer header li.menu-icon {
   display: inline-block;
+}
+
+.timer .menu-icon button {
+  height: 24px;
 }
 
 .timer header ul.responsive {
