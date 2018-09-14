@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {fetchTasks} from '../actions/board-data';
+import {fetchTasks, moveTask} from '../actions/board-data';
 import Task from './task';
 import AddTask from './add-task';
 import TaskForm from './task-form';
@@ -10,6 +10,19 @@ import './column.css';
 export class Column extends React.Component {
   componentDidMount() {
     return this.props.dispatch(fetchTasks());
+  }
+  allowDrop(event) {
+    event.preventDefault();
+  }
+  previewDrop(event) {
+    console.log('`onDropEnter` triggered')
+  }
+  drop(event, columnId) {
+    event.preventDefault();
+    // console.log(element);
+    const taskId = event.dataTransfer.getData("number");
+    this.props.dispatch(moveTask(taskId, columnId));
+    // element.appendChild(document.getElementById(data));
   }
   render() {
     let tasks;
@@ -43,9 +56,16 @@ export class Column extends React.Component {
     return (
       <div className="col-horz-flex-container">
         <div className="col-vert-flex-container">
-          <section className="column">
+          <section
+            className="column"
+            onDragOver={(e) => this.allowDrop(e)}
+            onDragEnter={(e) => this.previewDrop(e)}
+            onDrop={(ev) => this.drop(ev, this.props.columnId)}
+          >
             <header className="col-header">{this.props.name}</header>
-            {tasks}
+            <div className="taskList">
+              {tasks}
+            </div>
             {addTask}
           </section>
           {timer}

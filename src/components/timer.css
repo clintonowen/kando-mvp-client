@@ -13,6 +13,7 @@
 .timer header {
   background-color: lightgray;
   border-bottom: 1px solid gray;
+  cursor: pointer;
   margin-bottom: 8px;
   padding: 4px;
   position: relative;

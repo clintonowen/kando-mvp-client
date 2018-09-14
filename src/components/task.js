@@ -11,6 +11,9 @@ export class Task extends React.Component {
       this.props.dispatch(stopSelect());
     }
   }
+  handleDrag(event) {
+    event.dataTransfer.setData("number", event.target.id);
+  }
   render() {
     let timeSpent;
     let classes = 'task';
@@ -34,8 +37,11 @@ export class Task extends React.Component {
     }
     return (
       <section
+        id={this.props.taskId}
         className={classes}
         onClick={() => this.handleTaskClick(this.props.taskId)}
+        draggable="true"
+        onDragStart={(e) => this.handleDrag(e)}
       >
         <header>{this.props.name}</header>
         {timeSpent}

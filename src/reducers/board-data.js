@@ -8,6 +8,7 @@ import {
   UPDATE_TIME, 
   SEND_TIME_SUCCESS,
   ADD_TASK_SUCCESS,
+  MOVE_TASK,
   FETCH_ERROR
 } from '../actions/board-data';
 
@@ -83,8 +84,9 @@ export default function reducer(state = initialState, action) {
   if (action.type === UPDATE_TIME) {
     return Object.assign({}, state, {
       tasks: state.tasks.map(task => 
-        (task.id === action.taskId ?
-          Object.assign({}, task, { time: task.time + 60000 }) : task
+        (task.id === action.taskId
+          ? Object.assign({}, task, { time: task.time + 60000 })
+          : task
         ))
     });
   }
@@ -93,8 +95,9 @@ export default function reducer(state = initialState, action) {
     const taskTime = action.data.time;
     return Object.assign({}, state, {
       tasks: state.tasks.map(task => 
-        (task.id === taskId ?
-          Object.assign({}, task, { time: taskTime }) : task
+        (task.id === taskId
+          ? Object.assign({}, task, { time: taskTime })
+          : task
         )),
       error: null
     });
@@ -104,6 +107,16 @@ export default function reducer(state = initialState, action) {
     return Object.assign({}, state, {
       tasks: [...state.tasks, task],
       error: null
+    });
+  }
+  if (action.type === MOVE_TASK) {
+    const { taskId, columnId } = action.data;
+    return Object.assign({}, state, {
+      tasks: state.tasks.map(task => 
+        (task.id === taskId
+          ? Object.assign({}, task, { columnId })
+          : task
+        ))
     });
   }
   if (action.type === FETCH_ERROR) {

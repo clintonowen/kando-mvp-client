@@ -48,6 +48,12 @@ export const addTaskSuccess = data => ({
   data
 });
 
+export const MOVE_TASK = 'MOVE_TASK';
+export const moveTask = (taskId, columnId) => ({
+  type: MOVE_TASK,
+  data: { taskId, columnId }
+});
+
 export const SEND_TIME_SUCCESS = 'SEND_TIME_SUCCESS';
 export const sendTimeSuccess = data => ({
   type: SEND_TIME_SUCCESS,

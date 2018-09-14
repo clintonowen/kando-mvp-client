@@ -1,6 +1,7 @@
 .task {
   background-color: lightgray;
   border: 1px solid gray;
+  cursor: pointer;
   margin: 6px;
   padding: 4px;
   position: relative;
