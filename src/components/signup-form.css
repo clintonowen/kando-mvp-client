@@ -1,4 +1,4 @@
-.login-form {
+.signup-form {
   background-color: lightgray;
   margin-left: auto;
   margin-right: auto;
@@ -8,20 +8,20 @@
   padding-top: 20px;
 }
 
-.login-form fieldset {
+.signup-form fieldset {
   border: none;
 }
 
-.login-form legend {
+.signup-form legend {
   text-align: center;
 }
 
-.login-form label {
+.signup-form label {
   display: block;
   margin-top: 15px;
 }
 
-.login-form input {
+.signup-form input {
   /* border-style: inset; */
   border: 1px inset gray;
   margin-top: 5px;
@@ -29,7 +29,7 @@
   width: 100%;
 }
 
-.login-form button {
+.signup-form button {
   height: 40px;
   margin-left: auto;
   margin-right: auto;

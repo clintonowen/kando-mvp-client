@@ -19,8 +19,9 @@ export class HeaderBar extends React.Component {
     this.props.dispatch(hideNavMenu());
   }
   toggleTimer() {
-    let timerColumn = this.props.columns.find(column => column.showTimer === true);
-    if (!timerColumn) {
+    let columns = this.props.columns;
+    let timerColumn = columns.find(column => column.showTimer === true);
+    if (columns.length > 0 && !timerColumn) {
       let timerColumn = this.props.columns[this.props.columns.length - 1]['id'];
       this.props.dispatch(setTimerColumn(timerColumn));
       this.hideMenu();

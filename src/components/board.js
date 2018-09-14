@@ -13,7 +13,7 @@ export class Board extends React.Component {
 
   render() {
     let columns;
-    if (this.props.columns) {
+    if (this.props.columns.length > 0) {
       columns = this.props.columns
         .map(column => {
           return (

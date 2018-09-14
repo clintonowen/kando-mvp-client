@@ -14,8 +14,8 @@ import {
 import { CLEAR_AUTH } from '../actions/auth';
 
 const initialState = {
-  columns: '',
-  tasks: '',
+  columns: [],
+  tasks: [],
   error: null
 };
 
@@ -23,13 +23,13 @@ export default function reducer(state = initialState, action) {
   if (action.type === CLEAR_AUTH) {
     return Object.assign({}, state, initialState);
   }
-  if (action.type === FETCH_COLUMNS_SUCCESS) {
+  if (action.type === FETCH_COLUMNS_SUCCESS && action.data.length > 0) {
     return Object.assign({}, state, {
       columns: [action.data[0]],
       error: null
     });
   }
-  if (action.type === FETCH_TASKS_SUCCESS) {
+  if (action.type === FETCH_TASKS_SUCCESS && action.data.length > 0) {
     return Object.assign({}, state, {
       tasks: action.data,
       error: null
@@ -88,7 +88,7 @@ export default function reducer(state = initialState, action) {
         ))
     });
   }
-  if (action.type === SEND_TIME_SUCCESS) {
+  if (action.type === SEND_TIME_SUCCESS && action.data) {
     const taskId = action.data.id;
     const taskTime = action.data.time;
     return Object.assign({}, state, {

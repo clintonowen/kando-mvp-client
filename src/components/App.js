@@ -5,6 +5,7 @@ import { Route, withRouter } from 'react-router-dom';
 import HeaderBar from './header-bar';
 import LandingPage from './landing-page';
 import LoginForm from './login-form';
+import SignupForm from './signup-form';
 import Board from './board';
 import { refreshAuthToken } from '../actions/auth';
 
@@ -37,6 +38,7 @@ class App extends React.Component {
       <HeaderBar />
       <Route exact path="/" component={LandingPage} />
       <Route exact path="/login" component={LoginForm} />
+      <Route exact path="/signup" component={SignupForm} />
       <Route exact path="/board" component={Board} />
       </div>
     );
