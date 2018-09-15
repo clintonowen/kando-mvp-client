@@ -1,11 +1,15 @@
-.task {
-  background-color: lightgray;
+.task-container {
+  background: lightgray;
   border: 1px solid gray;
-  cursor: pointer;
+  cursor: move;
   margin: 6px;
   padding: 4px;
   position: relative;
   z-index: 10;
+}
+
+.task {
+  
 }
 
 .task span {
@@ -19,3 +23,7 @@
 .bright {
   background-color: rgb(235, 235, 235);
 }
+
+/* .dragging {
+  visibility: hidden;
+} */

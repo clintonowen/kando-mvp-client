@@ -3,6 +3,7 @@ import {
   FETCH_TASKS_SUCCESS,
   SHOW_TASK_FORM,
   HIDE_TASK_FORM,
+  TOGGLE_TASK_DRAGGING,
   SET_TIMER_COLUMN,
   UNSET_TIMER_COLUMN,
   UPDATE_TIME, 
@@ -69,6 +70,23 @@ export default function reducer(state = initialState, action) {
         }
       })
     });
+  }
+  if (action.type === TOGGLE_TASK_DRAGGING) {
+    return Object.assign({}, state, {
+      columns: state.columns.map(column => {
+        const task = column.tasks.find(task => task.id === action.taskId);
+        if (task) {
+          const otherTasks = column.tasks.filter(task => task.id !== action.taskId);
+          return Object.assign({}, column, {
+            tasks: [...otherTasks, Object.assign({}, task, {
+              dragging: !task.dragging
+            })]
+          });
+        } else {
+          return column;
+        }
+      })
+    })
   }
   if (action.type === SET_TIMER_COLUMN) {
     return Object.assign({}, state, {

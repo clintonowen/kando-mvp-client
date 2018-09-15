@@ -25,6 +25,12 @@ export const hideTaskForm = (columnId) => ({
   columnId
 });
 
+export const TOGGLE_TASK_DRAGGING = 'TOGGLE_TASK_DRAGGING';
+export const toggleTaskDragging = (taskId) => ({
+  type: TOGGLE_TASK_DRAGGING,
+  taskId
+});
+
 export const SET_TIMER_COLUMN = 'SET_TIMER_COLUMN';
 export const setTimerColumn = (columnId) => ({
   type: SET_TIMER_COLUMN,

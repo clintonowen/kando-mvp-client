@@ -12,7 +12,7 @@ export class Column extends React.Component {
     event.preventDefault();
   }
   previewDrop(event) {
-    console.log('`onDropEnter` triggered')
+    // console.log('`onDropEnter` triggered')
   }
   drop(event, newColumnId) {
     event.preventDefault();
@@ -41,6 +41,7 @@ export class Column extends React.Component {
               time={task.time}
               selected={selected}
               taskId={task.id}
+              dragging={task.dragging}
             />
           );
         }
