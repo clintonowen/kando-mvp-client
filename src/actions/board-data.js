@@ -48,12 +48,6 @@ export const addTaskSuccess = data => ({
   data
 });
 
-export const MOVE_TASK = 'MOVE_TASK';
-export const moveTask = (taskId, columnId) => ({
-  type: MOVE_TASK,
-  data: { taskId, columnId }
-});
-
 export const SEND_TIME_SUCCESS = 'SEND_TIME_SUCCESS';
 export const sendTimeSuccess = data => ({
   type: SEND_TIME_SUCCESS,
@@ -104,7 +98,7 @@ export const fetchTasks = () => (dispatch, getState) => {
 
 export const addTask = (name, columnId) => (dispatch, getState) => {
   const authToken = getState().auth.authToken;
-  const data = { name, columnId };
+  const data = { name };
   return fetch(`${API_BASE_URL}/tasks`, {
     method: 'POST',
     body: JSON.stringify(data),
@@ -116,29 +110,53 @@ export const addTask = (name, columnId) => (dispatch, getState) => {
   .then(res => normalizeResponseErrors(res))
   .then(res => res.json())
   .then((data) => {
-    dispatch(addTaskSuccess(data));
+    const currentTasks = getState().boardData.columns.find(column => column.id === columnId).tasks.map(task => task.id);
+    const updateData = {
+      tasks: [ ...currentTasks, data.id ]
+    };
+    return dispatch(updateColumn(columnId, updateData));
   })
   .catch(err => {
     dispatch(fetchError(err));
   });
 };
 
-export const sendTime = (taskId, tasks) => (dispatch, getState) => {
+export const updateColumn = (columnId, updateData) => (dispatch, getState) => {
   const authToken = getState().auth.authToken;
-  const [ task ] = tasks.filter(task => task.id === taskId);
-  const data = { time: task.time };
-  return fetch(`${API_BASE_URL}/tasks/${taskId}`, {
+  return fetch(`${API_BASE_URL}/columns/${columnId}`, {
     method: 'PUT',
-    body: JSON.stringify(data),
+    body: JSON.stringify(updateData),
     headers: {
         'Authorization': `Bearer ${authToken}`,
         'Content-Type': 'application/json'
     }
   })
   .then(res => normalizeResponseErrors(res))
-  .then(res => {res.json()})
+  .then(res => res.json())
+  .then(() => {
+    dispatch(fetchColumns());
+  })
+  .catch(err => {
+    dispatch(fetchError(err));
+  });
+};
+
+export const updateTask = (taskId, updateData) => (dispatch, getState) => {
+  const authToken = getState().auth.authToken;
+  return fetch(`${API_BASE_URL}/tasks/${taskId}`, {
+    method: 'PUT',
+    body: JSON.stringify(updateData),
+    headers: {
+        'Authorization': `Bearer ${authToken}`,
+        'Content-Type': 'application/json'
+    }
+  })
+  .then(res => normalizeResponseErrors(res))
+  .then(res => res.json())
   .then((data) => {
-    dispatch(sendTimeSuccess(data));
+    if (updateData.time) {
+      dispatch(sendTimeSuccess(data));
+    }
   })
   .catch(err => {
     dispatch(fetchError(err));

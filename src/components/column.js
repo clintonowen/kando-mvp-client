@@ -1,6 +1,6 @@
 import React from 'react';
-import {connect} from 'react-redux';
-import {fetchTasks, moveTask} from '../actions/board-data';
+import { connect } from 'react-redux';
+import { updateColumn } from '../actions/board-data';
 import Task from './task';
 import AddTask from './add-task';
 import TaskForm from './task-form';
@@ -8,32 +8,33 @@ import Timer from './timer';
 import './column.css';
 
 export class Column extends React.Component {
-  componentDidMount() {
-    return this.props.dispatch(fetchTasks());
-  }
   allowDrop(event) {
     event.preventDefault();
   }
   previewDrop(event) {
     console.log('`onDropEnter` triggered')
   }
-  drop(event, columnId) {
+  drop(event, newColumnId) {
     event.preventDefault();
-    // console.log(element);
     const taskId = event.dataTransfer.getData("number");
-    this.props.dispatch(moveTask(taskId, columnId));
-    // element.appendChild(document.getElementById(data));
+    const oldColumn = this.props.columns.find(column => {
+      return column.tasks.find(task => task.id === taskId);
+    });
+    const addColumnTasks = [...this.props.columns.find(column => column.id === newColumnId).tasks.map(task => task.id), taskId];
+    const removeColumnTasks = oldColumn.tasks.filter(task => task.id !== taskId).map(task => task.id);
+    this.props.dispatch(updateColumn(oldColumn.id, { tasks: removeColumnTasks }));
+    this.props.dispatch(updateColumn(newColumnId, { tasks: addColumnTasks }));
   }
   render() {
     let tasks;
     if (this.props.tasks) {
       tasks = this.props.tasks
-        .filter(task => task.columnId === this.props.columnId)
-        .map((task) => {
+        .map((task, index) => {
           const selected = (task.id === this.props.selectedTask) ? true : false;
           return (
             <Task
               key={task.id}
+              index={index}
               name={task.name}
               time={task.time}
               selected={selected}
@@ -76,8 +77,8 @@ export class Column extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  tasks: state.boardData.tasks,
-  selectedTask: state.timer.selectedTask
+  selectedTask: state.timer.selectedTask,
+  columns: state.boardData.columns
 });
 
 export default connect(mapStateToProps)(Column);

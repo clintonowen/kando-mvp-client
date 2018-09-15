@@ -8,7 +8,6 @@ import {
   UPDATE_TIME, 
   SEND_TIME_SUCCESS,
   ADD_TASK_SUCCESS,
-  MOVE_TASK,
   FETCH_ERROR
 } from '../actions/board-data';
 
@@ -25,8 +24,21 @@ export default function reducer(state = initialState, action) {
     return Object.assign({}, state, initialState);
   }
   if (action.type === FETCH_COLUMNS_SUCCESS && action.data.length > 0) {
+    let columns = action.data;
+    if (state.columns.length > 0) {
+      let timerColumn = state.columns.find(column => column.showTimer === true);
+      if (timerColumn) {
+        columns = columns.map(column => {
+          if (column.id === timerColumn.id) {
+            return Object.assign({}, column, {showTimer: true});
+          } else {
+            return column;
+          }
+        });
+      }
+    }
     return Object.assign({}, state, {
-      columns: action.data,
+      columns,
       error: null
     });
   }
@@ -82,12 +94,21 @@ export default function reducer(state = initialState, action) {
     });
   }
   if (action.type === UPDATE_TIME) {
+    const {taskId} = action;
     return Object.assign({}, state, {
-      tasks: state.tasks.map(task => 
-        (task.id === action.taskId
-          ? Object.assign({}, task, { time: task.time + 60000 })
-          : task
-        ))
+      columns: state.columns.map(column => {
+        let task = column.tasks.filter(task => task.id === taskId);
+        if (task.length > 0) {
+          const updatedTasks = column.tasks.map(task => 
+            (task.id === taskId)
+            ? Object.assign({}, task, { time: task.time + 60000 })
+            : task
+          );
+          return Object.assign({}, column, { tasks: updatedTasks })
+        } else {
+          return column;
+        }
+      })
     });
   }
   if (action.type === SEND_TIME_SUCCESS && action.data) {
@@ -107,16 +128,6 @@ export default function reducer(state = initialState, action) {
     return Object.assign({}, state, {
       tasks: [...state.tasks, task],
       error: null
-    });
-  }
-  if (action.type === MOVE_TASK) {
-    const { taskId, columnId } = action.data;
-    return Object.assign({}, state, {
-      tasks: state.tasks.map(task => 
-        (task.id === taskId
-          ? Object.assign({}, task, { columnId })
-          : task
-        ))
     });
   }
   if (action.type === FETCH_ERROR) {

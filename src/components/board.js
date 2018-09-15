@@ -1,14 +1,13 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import requiresLogin from './requires-login';
-import {fetchColumns, fetchTasks} from '../actions/board-data';
+import {fetchColumns} from '../actions/board-data';
 import Column from './column';
 import './board.css';
 
 export class Board extends React.Component {
   componentDidMount() {
     this.props.dispatch(fetchColumns());
-    this.props.dispatch(fetchTasks());
   }
 
   render() {
@@ -19,8 +18,9 @@ export class Board extends React.Component {
           return (
             <Column
               key={column.id}
-              name={column.name}
               columnId={column.id}
+              name={column.name}
+              tasks={column.tasks}
               showTimer={column.showTimer}
               showTaskForm={column.showTaskForm}
             />

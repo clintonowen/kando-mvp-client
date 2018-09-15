@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import moment from 'moment';
 import { startTimer, stopTimer, timerTick, startSelect, stopSelect, 
   showTimerMenu, hideTimerMenu, breakTime, startBreak } from '../actions/timer';
-import { updateTime, sendTime, unsetTimerColumn } from '../actions/board-data';
+import { updateTime, updateTask, unsetTimerColumn } from '../actions/board-data';
 import './timer.css';
 
 export class Timer extends React.Component {
@@ -17,7 +17,14 @@ export class Timer extends React.Component {
       this.props.dispatch(timerTick());
       if (this.props.timeElapsed % 60000 === 0) {
         this.props.dispatch(updateTime(this.props.selectedTask));
-        this.props.dispatch(sendTime(this.props.selectedTask, this.props.tasks));
+        let newTime;
+        this.props.columns.forEach(column => {
+          let task = column.tasks.filter(task => task.id === this.props.selectedTask);
+          if (task.length > 0) {
+            newTime = task[0]['time'];
+          }
+        });
+        this.props.dispatch(updateTask(this.props.selectedTask, { time: newTime }));
         if (this.props.timeLeft <= 0) {
           this.handleClearTimers();
           this.handleBreaktime();
@@ -92,9 +99,14 @@ export class Timer extends React.Component {
     }
 
     let taskName;
-    if (this.props.tasks && this.props.selectedTask) {
-      taskName = this.props.tasks
-        .filter(task => task.id === this.props.selectedTask)[0]['name'];
+    if (this.props.columns && this.props.selectedTask) {
+      this.props.columns.forEach(column => {
+        column.tasks.forEach(task => {
+          if (task.id === this.props.selectedTask) {
+            taskName = task.name;
+          }
+        })
+      });
     }
 
     const responsive = this.props.showTimerMenu ? 'responsive' : '';
@@ -134,7 +146,7 @@ const mapStateToProps = state => ({
   timerStatus: state.timer.timerStatus,
   selectStatus: state.timer.selectStatus,
   selectedTask: state.timer.selectedTask,
-  tasks: state.boardData.tasks,
+  columns: state.boardData.columns,
   showTimerMenu: state.timer.showTimerMenu
 });
 
