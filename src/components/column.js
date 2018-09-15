@@ -20,10 +20,12 @@ export class Column extends React.Component {
     const oldColumn = this.props.columns.find(column => {
       return column.tasks.find(task => task.id === taskId);
     });
-    const addColumnTasks = [...this.props.columns.find(column => column.id === newColumnId).tasks.map(task => task.id), taskId];
-    const removeColumnTasks = oldColumn.tasks.filter(task => task.id !== taskId).map(task => task.id);
-    this.props.dispatch(updateColumn(oldColumn.id, { tasks: removeColumnTasks }));
-    this.props.dispatch(updateColumn(newColumnId, { tasks: addColumnTasks }));
+    if (oldColumn.id !== newColumnId) {
+      const addColumnTasks = [...this.props.columns.find(column => column.id === newColumnId).tasks.map(task => task.id), taskId];
+      const removeColumnTasks = oldColumn.tasks.filter(task => task.id !== taskId).map(task => task.id);
+      this.props.dispatch(updateColumn(oldColumn.id, { tasks: removeColumnTasks }));
+      this.props.dispatch(updateColumn(newColumnId, { tasks: addColumnTasks }));
+    }
   }
   render() {
     let tasks;
