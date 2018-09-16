@@ -66,6 +66,24 @@ export const fetchError = error => ({
   error
 });
 
+export const SET_DRAG_ELEMENT = 'SET_DRAG_ELEMENT';
+export const setDragElement = data => ({
+  type: SET_DRAG_ELEMENT,
+  data
+});
+
+export const SET_OVER_ELEMENT = 'SET_OVER_ELEMENT';
+export const setOverElement = (overElement, nodePlacement) => ({
+  type: SET_OVER_ELEMENT,
+  overElement,
+  nodePlacement
+});
+
+export const UNSET_OVER_ELEMENT = 'UNSET_OVER_ELEMENT';
+export const unsetOverElement = () => ({
+  type: UNSET_OVER_ELEMENT
+});
+
 export const fetchColumns = () => (dispatch, getState) => {
   const authToken = getState().auth.authToken;
   return fetch(`${API_BASE_URL}/columns`, {
@@ -76,7 +94,7 @@ export const fetchColumns = () => (dispatch, getState) => {
   })
   .then(res => normalizeResponseErrors(res))
   .then(res => res.json())
-  .then((data) => {
+  .then(data => {
     dispatch(fetchColumnsSuccess(data));
   })
   .catch(err => {

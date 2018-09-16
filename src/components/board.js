@@ -18,7 +18,7 @@ export class Board extends React.Component {
           return (
             <Column
               key={column.id}
-              columnId={column.id}
+              id={column.id}
               name={column.name}
               tasks={column.tasks}
               showTimer={column.showTimer}

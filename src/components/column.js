@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { updateColumn } from '../actions/board-data';
+import { updateColumn, unsetOverElement } from '../actions/board-data';
 import Task from './task';
 import AddTask from './add-task';
 import TaskForm from './task-form';
@@ -8,24 +8,43 @@ import Timer from './timer';
 import './column.css';
 
 export class Column extends React.Component {
-  allowDrop(event) {
+  handleDragOver(event) {
     event.preventDefault();
-  }
-  previewDrop(event) {
-    // console.log('`onDropEnter` triggered')
-  }
-  drop(event, newColumnId) {
-    event.preventDefault();
-    const taskId = event.dataTransfer.getData("number");
-    const oldColumn = this.props.columns.find(column => {
-      return column.tasks.find(task => task.id === taskId);
-    });
-    if (oldColumn.id !== newColumnId) {
-      const addColumnTasks = [...this.props.columns.find(column => column.id === newColumnId).tasks.map(task => task.id), taskId];
-      const removeColumnTasks = oldColumn.tasks.filter(task => task.id !== taskId).map(task => task.id);
-      this.props.dispatch(updateColumn(oldColumn.id, { tasks: removeColumnTasks }));
-      this.props.dispatch(updateColumn(newColumnId, { tasks: addColumnTasks }));
+    const overCol = event.target;
+    if (overCol.className === 'column') {
+      overCol.childNodes[1].appendChild(this.props.dragElement);
+      this.props.dispatch(unsetOverElement());
     }
+  }
+  handleDrop(event) {
+    event.preventDefault();
+    // const dragTaskId = this.props.dragElement.getAttribute('id');
+    // const sourceCol = this.props.columns.find(column => {
+    //   return column.id === this.props.dragElement.getAttribute('columnid')
+    // });
+    // const sourceNewTasks = sourceCol.tasks
+    //   .filter(task => task.id !== dragTaskId)
+    //   .map(task => task.id);
+    // const targetCol = this.props.columns
+    //   .find(column => column.id === this.props.id);
+    // const targetOldTasks = targetCol.tasks.map(task => task.id);
+    // let targetNewTasks;
+    // if (this.props.overElement) {
+    //   let to = this.props.overElement.getAttribute('index');
+    //   const before = this.props.nodePlacement === 'before';
+    //   if (!before) to++;
+    //   if (before && to === 0) {
+    //     targetNewTasks = [dragTaskId, ...targetOldTasks];
+    //   } else {
+    //     targetNewTasks = targetOldTasks.slice(0, to)
+    //       .concat([dragTaskId])
+    //       .concat(targetOldTasks.slice(to));
+    //   }
+    // } else {
+    //   targetNewTasks = [...targetOldTasks, dragTaskId];
+    // }
+    // this.props.dispatch(updateColumn(this.props.id, { tasks: targetNewTasks }));
+    // this.props.dispatch(updateColumn(sourceCol.id, { tasks: sourceNewTasks }));
   }
   render() {
     let tasks;
@@ -37,10 +56,11 @@ export class Column extends React.Component {
             <Task
               key={task.id}
               index={index}
+              taskId={task.id}
+              columnid={this.props.id}
               name={task.name}
               time={task.time}
               selected={selected}
-              taskId={task.id}
               dragging={task.dragging}
             />
           );
@@ -53,18 +73,17 @@ export class Column extends React.Component {
       timer = <Timer />
     }
 
-    let addTask = <AddTask columnId={this.props.columnId} />
+    let addTask = <AddTask columnId={this.props.id} />
     if (this.props.showTaskForm) {
-      addTask = <TaskForm columnId={this.props.columnId} />
+      addTask = <TaskForm columnId={this.props.id} />
     }
     return (
       <div className="col-horz-flex-container">
         <div className="col-vert-flex-container">
           <section
             className="column"
-            onDragOver={(e) => this.allowDrop(e)}
-            onDragEnter={(e) => this.previewDrop(e)}
-            onDrop={(ev) => this.drop(ev, this.props.columnId)}
+            onDragOver={(e) => this.handleDragOver(e)}
+            onDrop={(e) => this.handleDrop(e)}
           >
             <header className="col-header">{this.props.name}</header>
             <div className="taskList">
@@ -81,7 +100,10 @@ export class Column extends React.Component {
 
 const mapStateToProps = state => ({
   selectedTask: state.timer.selectedTask,
-  columns: state.boardData.columns
+  columns: state.boardData.columns,
+  dragElement: state.boardData.dragElement,
+  overElement: state.boardData.overElement,
+  nodePlacement: state.boardData.nodePlacement
 });
 
 export default connect(mapStateToProps)(Column);

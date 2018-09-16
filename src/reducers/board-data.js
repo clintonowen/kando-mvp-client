@@ -9,7 +9,10 @@ import {
   UPDATE_TIME, 
   SEND_TIME_SUCCESS,
   ADD_TASK_SUCCESS,
-  FETCH_ERROR
+  FETCH_ERROR,
+  SET_DRAG_ELEMENT,
+  SET_OVER_ELEMENT,
+  UNSET_OVER_ELEMENT
 } from '../actions/board-data';
 
 import { CLEAR_AUTH } from '../actions/auth';
@@ -17,7 +20,10 @@ import { CLEAR_AUTH } from '../actions/auth';
 const initialState = {
   columns: [],
   tasks: [],
-  error: null
+  error: null,
+  dragElement: null,
+  overElement: null,
+  nodePlacement: null
 };
 
 export default function reducer(state = initialState, action) {
@@ -151,6 +157,24 @@ export default function reducer(state = initialState, action) {
   if (action.type === FETCH_ERROR) {
     return Object.assign({}, state, {
       error: action.error
+    });
+  }
+  if (action.type === SET_DRAG_ELEMENT) {
+    const dragElement = action.data;
+    return Object.assign({}, state, {
+      dragElement
+    });
+  }
+  if (action.type === SET_OVER_ELEMENT) {
+    const { overElement, nodePlacement } = action;
+    return Object.assign({}, state, {
+      overElement,
+      nodePlacement
+    });
+  }
+  if (action.type === UNSET_OVER_ELEMENT) {
+    return Object.assign({}, state, {
+      overElement: null
     });
   }
   return state;

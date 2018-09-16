@@ -3,13 +3,13 @@
   border: 1px solid gray;
   cursor: move;
   margin: 6px;
+  margin-bottom: 0px;
   padding: 4px;
   position: relative;
-  z-index: 10;
 }
 
 .task {
-  
+  pointer-events: none;
 }
 
 .task span {
@@ -20,8 +20,9 @@
   border: 2px dashed maroon;
 }
 
-.bright {
+.selectable {
   background-color: rgb(235, 235, 235);
+  z-index: 100;
 }
 
 /* .dragging {
