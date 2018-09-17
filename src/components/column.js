@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { reorderTasks, toggleTaskDragging, updateColumn, setTargetColumn, unsetOverElement } from '../actions/board-data';
+import { DropTarget } from 'react-dnd';
+import { pushTask, removeTask, moveTask } from '../actions/board-data';
 import Task from './task';
 import AddTask from './add-task';
 import TaskForm from './task-form';
@@ -8,36 +9,17 @@ import Timer from './timer';
 import './column.css';
 
 export class Column extends React.Component {
-  handleDragOver(event) {
-    event.preventDefault();
-    if (event.target.className === 'column') {
-      this.props.dispatch(setTargetColumn(
-        this.props.columns.find(col => col.id === this.props.id)
-      ));
-      this.props.dispatch(unsetOverElement());
-      // this.props.dispatch(addColumnTask());
-      event.target.childNodes[1].appendChild(this.props.dragElement);
-    }
+  handlePushTask(task, columnId) {
+    this.props.dispatch(pushTask(task, columnId));
   }
-  handleDrop(event) {
-    event.preventDefault();
-    console.log('handleDrop ran');
-    this.props.dispatch(toggleTaskDragging(this.props.dragElement.id));
-
-    this.props.dispatch(reorderTasks());
-    
-    let domTask = document.getElementById(this.props.dragElement.id);
-    console.log('domTask', domTask);
-    if (this.props.overElement) {
-      this.props.overElement.parentNode.removeChild(domTask);
-    } else {
-      event.target.getElementsByClassName('taskList')[0].removeChild(domTask);
-    }
-    
-    // this.props.dispatch(updateColumn(this.props.id, { tasks: targetNewTasks }));
-    // this.props.dispatch(updateColumn(sourceCol.id, { tasks: sourceNewTasks }));
+  handleRemoveTask(taskId, columnId) {
+    this.props.dispatch(removeTask(taskId, columnId));
+  }
+  handleMoveTask(task, dragIndex, hoverIndex, columnId) {
+    this.props.dispatch(moveTask(task, dragIndex, hoverIndex, columnId));
   }
   render() {
+    const { connectDropTarget } = this.props;
     let tasks;
     if (this.props.tasks.length > 0) {
       tasks = this.props.tasks
@@ -50,9 +32,10 @@ export class Column extends React.Component {
               taskId={task.id}
               columnId={this.props.id}
               name={task.name}
+              task={task}
               time={task.time}
               selected={selected}
-              dragging={task.dragging}
+              moveTask={this.handleMoveTask.bind(this)}
             />
           );
         }
@@ -71,17 +54,15 @@ export class Column extends React.Component {
     return (
       <div className="col-horz-flex-container">
         <div className="col-vert-flex-container">
-          <section
-            className="column"
-            onDragOver={(e) => this.handleDragOver(e)}
-            onDrop={(e) => this.handleDrop(e)}
-          >
-            <header className="col-header">{this.props.name}</header>
-            <div className="taskList">
-              {tasks}
-            </div>
-            {addTask}
-          </section>
+          {connectDropTarget(
+            <section className="column">
+              <header className="col-header">{this.props.name}</header>
+                <div className="taskList">
+                  {tasks}
+                </div>
+              {addTask}
+            </section>
+          )}
           {timer}
         </div>
       </div>
@@ -89,13 +70,37 @@ export class Column extends React.Component {
   }
 }
 
+const taskTarget = {
+  hover(props, monitor, component) {
+    const { id } = props;
+    const sourceObj = monitor.getItem();
+    props.columns.forEach(column => {
+      if (column.id !== id && column.tasks.find(task => task.id === sourceObj.task.id)) {
+        component.handleRemoveTask(sourceObj.task.id, column.id);
+      }
+    });
+    if (!props.tasks.find(task => task.id === sourceObj.task.id)) {
+      component.handlePushTask(sourceObj.task, id);
+      sourceObj.index = (props.tasks.length);
+    }
+  },
+  drop(props) {
+    const { id, columns } = props;
+    return {
+      columnId: id,
+      columns
+    };
+  }
+}
+
 const mapStateToProps = state => ({
   selectedTask: state.timer.selectedTask,
-  columns: state.boardData.columns,
-  targetColumn: state.boardData.targetColumn,
-  dragElement: state.boardData.dragElement,
-  overElement: state.boardData.overElement,
-  nodePlacement: state.boardData.nodePlacement
+  columns: state.boardData.columns
 });
 
-export default connect(mapStateToProps)(Column);
+export default connect(mapStateToProps)(
+    DropTarget("TASK", taskTarget, (connect, monitor) => ({
+      connectDropTarget: connect.dropTarget(),
+      isOver: monitor.isOver(),
+      canDrop: monitor.canDrop()
+    }))(Column));

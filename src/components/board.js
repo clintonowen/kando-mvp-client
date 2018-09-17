@@ -1,7 +1,9 @@
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
+import { DragDropContext } from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
 import requiresLogin from './requires-login';
-import {fetchColumns} from '../actions/board-data';
+import { fetchColumns } from '../actions/board-data';
 import Column from './column';
 import './board.css';
 
@@ -49,4 +51,7 @@ const mapStateToProps = state => ({
   selectStatus: state.timer.selectStatus
 });
 
-export default requiresLogin()(connect(mapStateToProps)(Board));
+export default requiresLogin()(
+  connect(mapStateToProps)(
+    DragDropContext(HTML5Backend)(Board))
+);
