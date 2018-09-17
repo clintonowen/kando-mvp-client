@@ -22,5 +22,6 @@
 
 .selectable {
   background-color: rgb(235, 235, 235);
+  cursor: pointer;
   z-index: 100;
 }
