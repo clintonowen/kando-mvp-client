@@ -13,6 +13,29 @@ export const fetchTasksSuccess = data => ({
   data
 });
 
+export const PUSH_TASK = 'PUSH_TASK';
+export const pushTask = (task, columnId) => ({
+  type: PUSH_TASK,
+  task,
+  columnId
+});
+
+export const REMOVE_TASK = 'REMOVE_TASK';
+export const removeTask = (taskId, columnId) => ({
+  type: REMOVE_TASK,
+  taskId,
+  columnId
+});
+
+export const MOVE_TASK = 'MOVE_TASK';
+export const moveTask = (task, dragIndex, hoverIndex, columnId) => ({
+  type: MOVE_TASK,
+  task,
+  dragIndex,
+  hoverIndex,
+  columnId
+});
+
 export const SHOW_TASK_FORM = 'SHOW_TASK_FORM';
 export const showTaskForm = (columnId) => ({
   type: SHOW_TASK_FORM,

@@ -52,7 +52,6 @@ const mapStateToProps = state => ({
 });
 
 export default requiresLogin()(
-  DragDropContext(HTML5Backend)(
-    connect(mapStateToProps)(Board)
-  )
+  connect(mapStateToProps)(
+    DragDropContext(HTML5Backend)(Board))
 );

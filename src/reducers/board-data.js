@@ -1,6 +1,9 @@
 import {
   FETCH_COLUMNS_SUCCESS,
   FETCH_TASKS_SUCCESS,
+  PUSH_TASK,
+  REMOVE_TASK,
+  MOVE_TASK,
   SHOW_TASK_FORM,
   HIDE_TASK_FORM,
   SET_TIMER_COLUMN,
@@ -46,6 +49,52 @@ export default function reducer(state = initialState, action) {
     return Object.assign({}, state, {
       tasks: action.data,
       error: null
+    });
+  }
+  if (action.type === PUSH_TASK) {
+    const { task, columnId } = action;
+    return Object.assign({}, state, {
+      columns: state.columns.map(column => {
+        if (column.id === columnId) {
+          return Object.assign({}, column, {
+            tasks: [...column.tasks, task]
+          })
+        } else {
+          return column;
+        }
+      })
+    });
+  }
+  if (action.type === REMOVE_TASK) {
+    const { taskId, columnId } = action;
+    return Object.assign({}, state, {
+      columns: state.columns.map(column => {
+        if (column.id === columnId) {
+          return Object.assign({}, column, {
+            tasks: column.tasks.filter(task => task.id !== taskId)
+          })
+        } else {
+          return column;
+        }
+      })
+    });
+  }
+  if (action.type === MOVE_TASK) {
+    const { task, dragIndex, hoverIndex, columnId } = action;
+    return Object.assign({}, state, {
+      columns: state.columns.map(column => {
+        if (column.id === columnId) {
+          let removedTasks = column.tasks.slice(0, dragIndex)
+            .concat(column.tasks.slice(dragIndex + 1))
+          return Object.assign({}, column, {
+            tasks: removedTasks.slice(0, hoverIndex)
+              .concat([task])
+              .concat(removedTasks.slice(hoverIndex))
+          })
+        } else {
+          return column;
+        }
+      })
     });
   }
   if (action.type === SHOW_TASK_FORM) {
