@@ -5,6 +5,7 @@ import { DragSource, DropTarget } from 'react-dnd';
 import moment from 'moment';
 import { updateColumn, deleteTask, hideTaskMenu, showTaskMenu } from '../actions/board-data';
 import { selectTask, stopSelect } from '../actions/timer';
+import { DropdownMenu } from './dropdown-menu';
 import './task.css';
 
 export class Task extends React.Component {
@@ -61,8 +62,6 @@ export class Task extends React.Component {
       timeSpent = <span>Time spent: {duration}</span>
     }
 
-    const responsive = this.props.showTaskMenu ? 'responsive' : '';
-
     return connectDragSource(connectDropTarget(
       <div
           id={this.props.taskId}
@@ -71,19 +70,20 @@ export class Task extends React.Component {
           columnid={this.props.columnid}
           onClick={() => this.handleTaskClick(this.props.taskId)}
       >
+      <DropdownMenu
+        classes="task-menu"
+        showMenu={this.props.showTaskMenu}
+        toggleMenu={() => this.toggleMenu()}
+        links={[
+          {
+            onClick: () => this.handleDelete(),
+            text: 'Delete'
+          }
+        ]}
+      />
         <section className={taskClasses}>
           <header>
             {this.props.name}
-            <ul className={responsive}>
-            <li className="menu-icon">
-              <button onClick={() => this.toggleMenu()}>
-                Menu
-              </button>
-            </li>
-            <li>
-              <a href="#app" onClick={() => this.handleDelete()}>Delete</a>
-            </li>
-          </ul>
           </header>
           {timeSpent}
         </section>

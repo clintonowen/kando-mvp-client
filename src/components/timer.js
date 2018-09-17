@@ -4,6 +4,7 @@ import moment from 'moment';
 import { startTimer, stopTimer, timerTick, startSelect, stopSelect, 
   showTimerMenu, hideTimerMenu, breakTime, startBreak } from '../actions/timer';
 import { updateTime, updateTask, unsetTimerColumn } from '../actions/board-data';
+import { DropdownMenu } from './dropdown-menu';
 import './timer.css';
 
 export class Timer extends React.Component {
@@ -109,33 +110,47 @@ export class Timer extends React.Component {
       });
     }
 
-    const responsive = this.props.showTimerMenu ? 'responsive' : '';
+    let timeLeftMessage = 'Time until next break:';
+    if (this.props.timerStatus === 'onBreak') {
+      timeLeftMessage = 'Break time remaining:';
+    }
 
     return (
-      <section className="timer">
+      <div className="timer">
         <header>
           Pomodoro Timer
-          <ul className={responsive}>
-            <li className="menu-icon">
-              <button onClick={() => this.toggleMenu()}>
-                Menu
-              </button>
-            </li>
-            <li>
-              <a href="#app" onClick={() => this.hideTimer()}>Hide</a>
-            </li>
-          </ul>
-          
+            <DropdownMenu
+              classes="timer-menu"
+              showMenu={this.props.showTimerMenu}
+              toggleMenu={() => this.toggleMenu()}
+              links={[
+                {
+                  onClick: () => this.hideTimer(),
+                  text: 'Hide'
+                }
+              ]}
+            />
         </header>
-        {selectButton}
-        <p className="task-selected">
-          Task Selected: <span
-            style={{color: 'maroon'}}> {taskName ? taskName : 'None'}
-            </span>
-        </p>
-        <p className="time-left">{timeLeft}</p>
-        {timerButton}
-      </section>
+        <section className="timer-container">
+          {selectButton}
+          <section className="task-selected">
+            <div className="task-selected-msg">
+              Task selected:
+            </div>
+            <div className="task-selected-disp"> {taskName ? taskName : 'None'}
+            </div>
+          </section>
+          <section className="timeleft">
+            <div className="timeleft-msg">
+              {timeLeftMessage}
+            </div>
+            <div className="timeleft-disp">
+              {timeLeft}
+            </div>
+          </section>
+          {timerButton}
+        </section>
+      </div>
     );
   }
 }

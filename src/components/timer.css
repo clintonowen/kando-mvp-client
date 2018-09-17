@@ -10,50 +10,36 @@
   width: 100%;
 }
 
+/***** Timer Header *****/
+
 .timer header {
   background-color: lightgray;
   border-bottom: 1px solid gray;
-  cursor: pointer;
-  margin-bottom: 8px;
   padding: 4px;
   position: relative;
   text-align: center;
   width: 100%;
 }
 
-.timer header ul {
-  right: 0px;
-  padding-left: 1px;
-  padding-right: 1px;
-  position: absolute;
-  text-align: center;
-  top: -15px;
+.timer header:hover {
+  cursor: move;
 }
 
-.timer header li {
-  display: none;
-  margin-bottom: 8px;
-}
+/***** Timer Content *****/
 
-.timer header li.menu-icon {
-  display: inline-block;
-}
-
-.timer .menu-icon button {
-  height: 24px;
-}
-
-.timer header ul.responsive {
-  background-color: lightgray;
-}
-
-.timer header ul.responsive li {
-  display: block;
+.timer-container {
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 8px;
+  position: relative;
+  width: 194px;
 }
 
 .timer p {
   margin: 8px;
 }
+
+/***** Task Selection *****/
 
 .select-button {
   position: relative;
@@ -61,13 +47,48 @@
 }
 
 .task-selected {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  align-items: center;
+  display: flex;
+  flex-wrap: nowrap;
+  margin: 8px;
 }
 
-.time-left {
-  font-size: 2em;
+.task-selected-msg {
+  flex: 0;
+  flex-basis: 70px;
+  font-size: 0.85em;
+  text-align: left;
+}
+
+.task-selected-disp {
+  color: maroon;
+  flex: 1;
+  max-height: 36px;
+  margin-left: 4px;
+  overflow: hidden;
+  text-align: left;
+}
+
+/***** Timer Display *****/
+
+.timeleft {
+  align-items: center;
+  display: flex;
+  flex-wrap: nowrap;
+  margin: 8px;
+}
+
+.timeleft-msg {
+  flex: 0;
+  flex-basis: 70px;
+  font-size: 0.85em;
+  text-align: left;
+}
+
+.timeleft-disp {
+  flex: 1;
+  font-size: 2.5em;
   font-weight: bold;
-  margin: 16px;
+  margin-left: 4px;
+  text-align: left;
 }

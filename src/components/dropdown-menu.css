@@ -1,0 +1,55 @@
+.menu-container {
+  background: none;
+  border: none;
+  position: absolute;
+  right: 0px;
+  text-align: right;
+  top: 0px;
+}
+
+.menu-container button {
+  border: none;
+  margin-bottom: 8px;
+  position: relative;
+  right: 0px;
+  top: 4px;
+}
+
+.menu-container button:hover > div {
+  background-color: black;
+}
+
+.menu-icon {
+  background: none;
+}
+
+.menu-icon div {
+  background-color: darkgray;
+  height: 2px;
+  margin: 3px 0 1px;
+  width: 15px;
+}
+
+.menu {
+  background: lightgray;
+  border: 1px solid gray;
+  display: block;
+  padding: 2px;
+  position: relative;
+  top: -1px;
+  right: -1px;
+  width: fit-content;
+  z-index: 100;
+}
+
+.menu ul {
+  list-style: none;
+  margin-block-start: 0px;
+  margin-block-end: 0px;
+  padding-inline-start: 0px;
+  text-align: left
+}
+
+.menu li {
+  margin: 2px;
+}

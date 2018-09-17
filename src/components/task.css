@@ -16,7 +16,7 @@
   font-size: 0.8em;
 }
 
-.task header ul {
+/* .task header ul {
   right: 0px;
   padding-left: 1px;
   padding-right: 1px;
@@ -45,7 +45,7 @@
 
 .task header ul.responsive li {
   display: block;
-}
+} */
 
 .selected {
   border: 2px dashed maroon;

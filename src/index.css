@@ -7,3 +7,17 @@ body {
   margin: 0;
   padding: 0;
 }
+
+button {
+  background: lightgray;
+  border: 1px solid rgb(185, 185, 185);
+}
+
+button:focus {
+  outline: none;
+}
+
+button:hover {
+  border: 1px solid black;
+  cursor: pointer;
+}
