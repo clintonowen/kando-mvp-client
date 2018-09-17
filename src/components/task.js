@@ -1,5 +1,5 @@
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import { findDOMNode } from 'react-dom';
 import { DragSource, DropTarget } from 'react-dnd';
 import moment from 'moment';
@@ -66,12 +66,11 @@ const taskSource = {
       task: props.task
     };
   },
-  endDrag(props, monitor) {
-    const item = monitor.getItem();
-    const dropResult = monitor.getDropResult();
-    if (dropResult && dropResult.columnId !== item.columnId) {
-      props.removeTask(item.task.id, item.columnId);
-    }
+  endDrag(props){
+    console.log(props);
+  },
+  isDragging(props, monitor) {
+    return props.task.id === monitor.getItem().task.id;
   }
 };
 
@@ -79,7 +78,6 @@ const taskTarget = {
   hover(props, monitor, component) {
     const dragIndex = monitor.getItem().index;
     const hoverIndex = props.index;
-    const sourceColumnId = monitor.getItem().columnId;
 
     // Don't replace items with themselves
     if (dragIndex === hoverIndex) {
@@ -113,7 +111,7 @@ const taskTarget = {
     }
 
     // Time to actually perform the action
-    if (props.columnId === sourceColumnId) {
+    if (dragIndex !== hoverIndex) {
       props.moveTask(monitor.getItem().task, dragIndex, hoverIndex, props.columnId);
 
       // Note: we're mutating the monitor item here!
@@ -130,13 +128,14 @@ const mapStateToProps = state => ({
   columns: state.boardData.columns
 });
 
-export default DropTarget(
+export default connect(mapStateToProps)(
+  DropTarget(
   "TASK", taskTarget, connect => ({
     connectDropTarget: connect.dropTarget()
-  })
-)(DragSource(
+    })
+  )(DragSource(
   "TASK", taskSource, (connect, monitor) => ({
     connectDragSource: connect.dragSource(),
     isDragging: monitor.isDragging()
-  })
-)(connect(mapStateToProps)(Task)));
+    })
+  )(Task)));

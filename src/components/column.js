@@ -19,8 +19,7 @@ export class Column extends React.Component {
     this.props.dispatch(moveTask(task, dragIndex, hoverIndex, columnId));
   }
   render() {
-    const { canDrop, isOver, connectDropTarget } = this.props;
-    const isActive = canDrop && isOver;
+    const { connectDropTarget } = this.props;
     let tasks;
     if (this.props.tasks.length > 0) {
       tasks = this.props.tasks
@@ -36,7 +35,6 @@ export class Column extends React.Component {
               task={task}
               time={task.time}
               selected={selected}
-              removeTask={this.handleRemoveTask.bind(this)}
               moveTask={this.handleMoveTask.bind(this)}
             />
           );
@@ -73,12 +71,21 @@ export class Column extends React.Component {
 }
 
 const taskTarget = {
-  drop(props, monitor, component) {
+  hover(props, monitor, component) {
     const { id } = props;
     const sourceObj = monitor.getItem();
-    if (id !== sourceObj.columnId) {
+    props.columns.forEach(column => {
+      if (column.id !== id && column.tasks.find(task => task.id === sourceObj.task.id)) {
+        component.handleRemoveTask(sourceObj.task.id, column.id);
+      }
+    });
+    if (!props.tasks.find(task => task.id === sourceObj.task.id)) {
       component.handlePushTask(sourceObj.task, id);
+      sourceObj.index = (props.tasks.length);
     }
+  },
+  drop(props) {
+    const { id } = props;
     return {
       columnId: id
     };
