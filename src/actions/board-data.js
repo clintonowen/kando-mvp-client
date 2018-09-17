@@ -13,11 +13,6 @@ export const fetchTasksSuccess = data => ({
   data
 });
 
-export const REORDER_TASKS = 'REORDER_TASKS';
-export const reorderTasks = () => ({
-  type: REORDER_TASKS
-});
-
 export const SHOW_TASK_FORM = 'SHOW_TASK_FORM';
 export const showTaskForm = (columnId) => ({
   type: SHOW_TASK_FORM,
@@ -28,12 +23,6 @@ export const HIDE_TASK_FORM = 'HIDE_TASK_FORM';
 export const hideTaskForm = (columnId) => ({
   type: HIDE_TASK_FORM,
   columnId
-});
-
-export const TOGGLE_TASK_DRAGGING = 'TOGGLE_TASK_DRAGGING';
-export const toggleTaskDragging = (taskId) => ({
-  type: TOGGLE_TASK_DRAGGING,
-  taskId
 });
 
 export const SET_TIMER_COLUMN = 'SET_TIMER_COLUMN';
@@ -69,41 +58,6 @@ export const FETCH_ERROR = 'FETCH_ERROR';
 export const fetchError = error => ({
   type: FETCH_ERROR,
   error
-});
-
-export const SET_SOURCE_COLUMN = 'SET_SOURCE_COLUMN';
-export const setSourceColumn = data => ({
-  type: SET_SOURCE_COLUMN,
-  data
-});
-
-export const SET_TARGET_COLUMN = 'SET_TARGET_COLUMN';
-export const setTargetColumn = data => ({
-  type: SET_TARGET_COLUMN,
-  data
-});
-
-export const SET_DRAG_ELEMENT = 'SET_DRAG_ELEMENT';
-export const setDragElement = data => ({
-  type: SET_DRAG_ELEMENT,
-  data
-});
-
-export const SET_OVER_ELEMENT = 'SET_OVER_ELEMENT';
-export const setOverElement = data => ({
-  type: SET_OVER_ELEMENT,
-  data
-});
-
-export const UNSET_OVER_ELEMENT = 'UNSET_OVER_ELEMENT';
-export const unsetOverElement = () => ({
-  type: UNSET_OVER_ELEMENT
-});
-
-export const SET_NODE_PLACEMENT = 'SET_NODE_PLACEMENT';
-export const setNodePlacement = data => ({
-  type: SET_NODE_PLACEMENT,
-  data
 });
 
 export const fetchColumns = () => (dispatch, getState) => {

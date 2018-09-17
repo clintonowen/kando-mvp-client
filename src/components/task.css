@@ -24,16 +24,3 @@
   background-color: rgb(235, 235, 235);
   z-index: 100;
 }
-
-.dragged-border {
-  background: none;
-  border: 3px dashed gray;
-  margin: 6px;
-  margin-bottom: 0px;
-  padding: 2px;
-  pointer-events: none;
-}
-
-.dragged-content {
-  visibility: hidden;
-}
