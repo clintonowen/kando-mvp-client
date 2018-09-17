@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { findDOMNode } from 'react-dom';
 import { DragSource, DropTarget } from 'react-dnd';
 import moment from 'moment';
+import { updateColumn } from '../actions/board-data';
 import { selectTask, stopSelect } from '../actions/timer';
 import './task.css';
 
@@ -12,6 +13,9 @@ export class Task extends React.Component {
       this.props.dispatch(selectTask(taskId));
       this.props.dispatch(stopSelect());
     }
+  }
+  handleUpdateColumn(columnId, updateData) {
+    this.props.dispatch(updateColumn(columnId, updateData));
   }
   render() {
     const { isDragging, connectDragSource, connectDropTarget } = this.props;
@@ -66,8 +70,22 @@ const taskSource = {
       task: props.task
     };
   },
-  endDrag(props){
-    console.log(props);
+  endDrag(props, monitor){
+    const sourceColumn = props.columnId;
+    const targetColumn = monitor.getDropResult().columnId;
+    const columns = monitor.getDropResult().columns;
+    const sourceData = {
+      tasks: columns.find(column => column.id === sourceColumn)
+        .tasks.map(task => task.id)
+    };
+    props.dispatch(updateColumn(sourceColumn, sourceData));
+    if (targetColumn !== sourceColumn) {
+      const targetData = {
+        tasks: columns.find(column => column.id === targetColumn)
+          .tasks.map(task => task.id)
+      };
+      props.dispatch(updateColumn(targetColumn, targetData));
+    }
   },
   isDragging(props, monitor) {
     return props.task.id === monitor.getItem().task.id;

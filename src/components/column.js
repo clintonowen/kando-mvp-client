@@ -85,9 +85,10 @@ const taskTarget = {
     }
   },
   drop(props) {
-    const { id } = props;
+    const { id, columns } = props;
     return {
-      columnId: id
+      columnId: id,
+      columns
     };
   }
 }
