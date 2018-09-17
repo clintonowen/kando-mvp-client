@@ -25,6 +25,15 @@
   z-index: 100;
 }
 
-/* .dragging {
+.dragged-border {
+  background: none;
+  border: 3px dashed gray;
+  margin: 6px;
+  margin-bottom: 0px;
+  padding: 2px;
+  pointer-events: none;
+}
+
+.dragged-content {
   visibility: hidden;
-} */
+}
