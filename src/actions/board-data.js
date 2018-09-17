@@ -48,6 +48,20 @@ export const hideTaskForm = (columnId) => ({
   columnId
 });
 
+export const SHOW_TASK_MENU = 'SHOW_TASK_MENU';
+export const showTaskMenu = (columnId, taskId) => ({
+  type: SHOW_TASK_MENU,
+  columnId,
+  taskId
+});
+
+export const HIDE_TASK_MENU = 'HIDE_TASK_MENU';
+export const hideTaskMenu = (columnId, taskId) => ({
+  type: HIDE_TASK_MENU,
+  columnId,
+  taskId
+});
+
 export const SET_TIMER_COLUMN = 'SET_TIMER_COLUMN';
 export const setTimerColumn = (columnId) => ({
   type: SET_TIMER_COLUMN,
@@ -180,6 +194,23 @@ export const updateTask = (taskId, updateData) => (dispatch, getState) => {
     if (updateData.time) {
       dispatch(sendTimeSuccess(data));
     }
+  })
+  .catch(err => {
+    dispatch(fetchError(err));
+  });
+};
+
+export const deleteTask = (taskId) => (dispatch, getState) => {
+  const authToken = getState().auth.authToken;
+  return fetch(`${API_BASE_URL}/tasks/${taskId}`, {
+    method: 'DELETE',
+    headers: {
+        'Authorization': `Bearer ${authToken}`
+    }
+  })
+  .then(res => normalizeResponseErrors(res))
+  .then(() => {
+    dispatch(fetchColumns());
   })
   .catch(err => {
     dispatch(fetchError(err));

@@ -36,6 +36,7 @@ export class Column extends React.Component {
               time={task.time}
               selected={selected}
               moveTask={this.handleMoveTask.bind(this)}
+              showTaskMenu={task.showTaskMenu}
             />
           );
         }

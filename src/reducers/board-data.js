@@ -6,6 +6,8 @@ import {
   MOVE_TASK,
   SHOW_TASK_FORM,
   HIDE_TASK_FORM,
+  SHOW_TASK_MENU,
+  HIDE_TASK_MENU,
   SET_TIMER_COLUMN,
   UNSET_TIMER_COLUMN,
   UPDATE_TIME, 
@@ -113,6 +115,46 @@ export default function reducer(state = initialState, action) {
       columns: state.columns.map(column => {
         if (column.id === action.columnId) {
           return Object.assign({}, column, { showTaskForm: false })
+        } else {
+          return column;
+        }
+      })
+    });
+  }
+  if (action.type === SHOW_TASK_MENU) {
+    const { columnId, taskId } = action;
+    return Object.assign({}, state, {
+      columns: state.columns.map(column => {
+        if (column.id === columnId) {
+          return Object.assign({}, column, {
+            tasks: column.tasks.map(task => {
+              if (task.id === taskId) {
+                return Object.assign({}, task, { showTaskMenu: true });
+              } else {
+                return task;
+              }
+            })
+          })
+        } else {
+          return column;
+        }
+      })
+    });
+  }
+  if (action.type === HIDE_TASK_MENU) {
+    const { columnId, taskId } = action;
+    return Object.assign({}, state, {
+      columns: state.columns.map(column => {
+        if (column.id === columnId) {
+          return Object.assign({}, column, {
+            tasks: column.tasks.map(task => {
+              if (task.id === taskId) {
+                return Object.assign({}, task, { showTaskMenu: false });
+              } else {
+                return task;
+              }
+            })
+          })
         } else {
           return column;
         }

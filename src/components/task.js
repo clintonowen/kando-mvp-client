@@ -3,11 +3,18 @@ import { connect } from 'react-redux';
 import { findDOMNode } from 'react-dom';
 import { DragSource, DropTarget } from 'react-dnd';
 import moment from 'moment';
-import { updateColumn } from '../actions/board-data';
+import { updateColumn, deleteTask, hideTaskMenu, showTaskMenu } from '../actions/board-data';
 import { selectTask, stopSelect } from '../actions/timer';
 import './task.css';
 
 export class Task extends React.Component {
+  toggleMenu() {
+    if (this.props.showTaskMenu) {
+      this.props.dispatch(hideTaskMenu(this.props.columnId, this.props.taskId));
+    } else {
+      this.props.dispatch(showTaskMenu(this.props.columnId, this.props.taskId));
+    }
+  }
   handleTaskClick(taskId) {
     if (this.props.selectStatus === 'started') {
       this.props.dispatch(selectTask(taskId));
@@ -16,6 +23,9 @@ export class Task extends React.Component {
   }
   handleUpdateColumn(columnId, updateData) {
     this.props.dispatch(updateColumn(columnId, updateData));
+  }
+  handleDelete() {
+    this.props.dispatch(deleteTask(this.props.taskId));
   }
   render() {
     const { isDragging, connectDragSource, connectDropTarget } = this.props;
@@ -34,17 +44,25 @@ export class Task extends React.Component {
       taskClasses += ' dragged-content';
     }
     if (this.props.time) {
-      let duration;
+      let duration = '';
       const time = moment.duration(this.props.time);
-      const hours = Math.floor(time.asHours());
-      const minutes = Math.floor(time.asMinutes()) - hours * 60;
+      const days = Math.floor(time.asDays());
+      const hours = Math.floor(time.asHours()) - (days * 24);
+      const minutes = Math.floor(time.asMinutes()) - (hours + (days * 24)) * 60;
+      if (days > 0) {
+        duration += `${days}d `
+      }
       if (hours > 0) {
-        duration = `${hours}h ${minutes}m`;
-      } else {
-        duration = `${minutes}m`;
+        duration += `${hours}h `;
+      }
+      if (minutes > 0) {
+        duration += `${minutes}m`;
       }
       timeSpent = <span>Time spent: {duration}</span>
     }
+
+    const responsive = this.props.showTaskMenu ? 'responsive' : '';
+
     return connectDragSource(connectDropTarget(
       <div
           id={this.props.taskId}
@@ -54,7 +72,19 @@ export class Task extends React.Component {
           onClick={() => this.handleTaskClick(this.props.taskId)}
       >
         <section className={taskClasses}>
-          <header>{this.props.name}</header>
+          <header>
+            {this.props.name}
+            <ul className={responsive}>
+            <li className="menu-icon">
+              <button onClick={() => this.toggleMenu()}>
+                Menu
+              </button>
+            </li>
+            <li>
+              <a href="#app" onClick={() => this.handleDelete()}>Delete</a>
+            </li>
+          </ul>
+          </header>
           {timeSpent}
         </section>
       </div>
