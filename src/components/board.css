@@ -1,8 +1,8 @@
 .board-wrapper {
-  height: calc(100vh - 52px);
+  height: calc(100vh - 53px);
   padding: 3px;
   padding-right: 0px;
-  margin-top: 52px;
+  margin-top: 53px;
   overflow-x: scroll;
   overflow-y: hidden;
 }
@@ -36,7 +36,7 @@
   height: 100%;
   left: 0px;
   position: fixed;
-  top: 52px;
+  top: 53px;
   width: 100%;
   z-index: 1;
 }

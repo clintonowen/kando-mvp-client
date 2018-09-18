@@ -30,7 +30,7 @@ export class TaskForm extends React.Component {
         )}>
         {error}
         <Field
-          label="Name"
+          label="Task Name:"
           component={Input}
           type="text"
           name="name"

@@ -27,6 +27,13 @@ export class Task extends React.Component {
   }
   handleDelete() {
     this.props.dispatch(deleteTask(this.props.taskId));
+    const updateData = {
+      tasks: this.props.columns
+        .find(column => column.id === this.props.columnId).tasks
+        .map(task => task.id)
+        .filter(taskId => taskId !== this.props.taskId)
+    };
+    this.props.dispatch(updateColumn(this.props.columnId, updateData));
   }
   render() {
     const { isDragging, connectDragSource, connectDropTarget } = this.props;
