@@ -1,6 +1,7 @@
 .login-form {
   border: 1px solid gray;
   border-radius: 4px;
+  margin-bottom: 60px;
   margin-left: auto;
   margin-right: auto;
   margin-top: 100px;
@@ -14,7 +15,8 @@
 }
 
 .login-form fieldset .form-error {
-
+  color: rgb(160, 0, 0);
+  font-size: 0.74em;
 }
 
 .login-form legend {
@@ -74,4 +76,8 @@
 
 .login-form button:enabled:hover, .login-form button:enabled:focus {
   box-shadow: 1px 1px 4px rgb(61, 61, 61);
+}
+
+.login-link {
+  text-align: center;
 }
