@@ -21,7 +21,7 @@ value.trim() === value ? undefined : 'Cannot start or end with whitespace';
 export const userLength = value => 
 (value.length >= 6 && value.length <= 30)
   ? undefined
-  : `Sorry, your username must be between 6 and 30 characters long`;
+  : `Use between 6 and 30 characters for your username`;
 
 export const passLength = value => 
 (value.length >= 8 && value.length <= 72)

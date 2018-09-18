@@ -55,19 +55,23 @@ export class HeaderBar extends React.Component {
         {
           onClick: () => this.hideMenu(),
           text: 'Home',
-          href: "/"
+          href: "/",
+          isLink: true
         },
         {
           onClick: () => this.hideMenu(),
           text: 'Login',
-          href: "/login"
+          href: "/login",
+          isLink: true
         }
       ];
     
     return (
       <nav>
         <header>
-          <h1>KanDo</h1>
+          <h1>
+            <Link to="/" onClick={() => this.hideMenu()}>KanDo</Link>
+          </h1>
         </header>
         <MediaQuery minWidth={701}>
           <ul className="desktop-links">

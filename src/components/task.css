@@ -20,8 +20,13 @@
 
 .selectable {
   background-color: rgb(235, 235, 235);
+  border: 1px solid maroon;
   cursor: pointer;
   z-index: 100;
+}
+
+.selectable:hover {
+  border: 1px dashed maroon;
 }
 
 .dragged-border {

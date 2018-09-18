@@ -9,7 +9,8 @@ nav {
 
 nav h1 {
   display: block;
-  font-weight: 900;
+  color: rgb(150, 0, 0);
+  font-weight: normal;
   font-size: 2em;
   margin: 8px;
   margin-left: auto;
@@ -17,6 +18,10 @@ nav h1 {
   /* padding: 0.8em; */
   text-align: center;
   width: 110px;
+}
+
+nav h1 a:hover {
+  text-decoration: none;
 }
 
 .desktop-links {

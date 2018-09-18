@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link, withRouter } from 'react-router-dom';
 import './dropdown-menu.css';
 
 export class DropdownMenu extends React.Component {
@@ -18,13 +19,23 @@ export class DropdownMenu extends React.Component {
         <div className="menu">
           <ul>
             {this.props.links.map((link) => {
-              return (
-                <li key={this.makeId()}>
-                  <a href={link.href} onClick={() => link.onClick()}>
-                    {link.text}
-                  </a>
-                </li>
-              );
+              if (link.isLink) {
+                return (
+                  <li key={this.makeId()}>
+                    <Link to={link.href} onClick={() => link.onClick()}>
+                      {link.text}
+                    </Link>
+                  </li>
+                );
+              } else {
+                return (
+                  <li key={this.makeId()}>
+                    <a href={link.href} onClick={() => link.onClick()}>
+                      {link.text}
+                    </a>
+                  </li>
+                );
+              }
             })}
           </ul>
         </div>
@@ -47,4 +58,4 @@ const mapStateToProps = state => ({
 
 });
 
-export default connect(mapStateToProps)(DropdownMenu);
+export default withRouter(connect(mapStateToProps)(DropdownMenu));

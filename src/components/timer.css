@@ -31,7 +31,7 @@
 .timer-container {
   margin-left: auto;
   margin-right: auto;
-  padding-top: 8px;
+  padding: 8px;
   position: relative;
   width: 194px;
 }
@@ -91,14 +91,14 @@
   flex: 1;
   font-size: 2.5em;
   font-weight: bold;
-  margin-left: 4px;
+  margin-left: 10px;
   text-align: left;
 }
 
 .timer-button {
   font-size: 1.3em;
   height: 36px;
-  margin: 8px;
+
   margin-top: 4px;
   width: 100px;
 }
