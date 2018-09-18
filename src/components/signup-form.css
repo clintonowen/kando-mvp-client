@@ -1,10 +1,12 @@
 .signup-form {
-  background-color: lightgray;
+  border: 1px solid gray;
+  border-radius: 4px;
+  margin-bottom: 60px;
   margin-left: auto;
   margin-right: auto;
   margin-top: 100px;
-  max-width: 400px;
-  padding: 40px;
+  max-width: 300px;
+  padding: 15px;
   padding-top: 20px;
 }
 
@@ -16,17 +18,42 @@
   text-align: center;
 }
 
-.signup-form label {
-  display: block;
-  margin-top: 15px;
+.signup-form h2 {
+  margin: 0px;
 }
 
-.signup-form input {
-  /* border-style: inset; */
+.signup-form .form-error {
+  color: rgb(160, 0, 0);
+  font-size: 0.75em;
+}
+
+.signup-form .form-input {
+  position: relative;
+}
+
+.signup-form .form-input label {
+  display: block;
+  font-size: 0.9em;
+  margin-top: 20px;
+}
+
+.signup-form .form-input input {
   border: 1px inset gray;
-  margin-top: 5px;
+  border-radius: 4px;
+  font-size: 1.2em;
   height: 40px;
+  margin-top: 5px;
+  padding: 8px;
   width: 100%;
+}
+
+.signup-form .form-input .form-error {
+  bottom: calc(line-height - 14px);
+  margin: 0px;
+  margin-top: 4px;
+  position: absolute;
+  right: 0px;
+  text-align: right;
 }
 
 .signup-form button {
@@ -35,4 +62,13 @@
   margin-right: auto;
   margin-top: 36px;
   width: 100%;
+}
+
+.signup-form button:enabled {
+  background: maroon;
+  color: white;
+}
+
+.signup-form button:enabled:hover, .signup-form button:enabled:focus {
+  box-shadow: 1px 1px 4px rgb(61, 61, 61);
 }

@@ -15,6 +15,10 @@
   top: 3px;
 }
 
+.menu-container button:enabled:hover {
+  border: none;
+}
+
 .menu-container button:hover > div {
   background-color: black;
 }

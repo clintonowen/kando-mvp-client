@@ -72,7 +72,7 @@ export class SignupForm extends React.Component {
             id="confirmPwd"
             validate={[noConfirm, matchesPassword]}
           />
-          <button disabled={this.props.pristine || this.props.submitting}>
+          <button disabled={!this.props.valid || this.props.submitting}>
             Create Account
           </button>
         </fieldset>

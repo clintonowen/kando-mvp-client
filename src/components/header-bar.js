@@ -38,20 +38,8 @@ export class HeaderBar extends React.Component {
     clearAuthToken();
   }
   render() {
-    let links = (this.props.location.pathname === '/')
+    let links = (this.props.location.pathname === '/board')
       ? [
-        {
-          onClick: () => this.hideMenu(),
-          text: 'Home',
-          href: "/"
-        },
-        {
-          onClick: () => this.hideMenu(),
-          text: 'Login',
-          href: "/login"
-        }
-      ]
-      : [
         {
           onClick: () => this.toggleTimer(),
           text: 'Timer',
@@ -62,41 +50,19 @@ export class HeaderBar extends React.Component {
           text: 'Log out',
           href: "#app"
         }
+      ]
+      : [
+        {
+          onClick: () => this.hideMenu(),
+          text: 'Home',
+          href: "/"
+        },
+        {
+          onClick: () => this.hideMenu(),
+          text: 'Login',
+          href: "/login"
+        }
       ];
-
-    // const responsive = this.props.showNavMenu ? 'responsive' : '';
-    // let navLinks = (
-    //   <ul className={responsive}>
-    //     <li className="menu-icon">
-    //       <button onClick={() => this.toggleMenu()}>
-    //         Menu
-    //       </button>
-    //     </li>
-    //     <li>
-    //       <Link to="/" onClick={() => this.hideMenu()}>Home</Link>
-    //     </li>
-    //     <li>
-    //       <Link to="/login" onClick={() => this.hideMenu()}>Login</Link>
-    //     </li>
-    //   </ul>
-    // );
-    // if (this.props.location.pathname === '/board') {
-    //   navLinks = (
-    //     <ul className={responsive}>
-    //       <li className="menu-icon">
-    //         <button onClick={() => this.toggleMenu()}>
-    //           Menu
-    //         </button>
-    //       </li>
-    //       <li>
-    //         <a href="#app" onClick={() => this.toggleTimer()}>Timer</a>
-    //       </li>
-    //       <li>
-    //         <a href="#app" onClick={() => this.handleLogOut()}>Log out</a>
-    //       </li>
-    //     </ul>
-    //   );
-    // }
     
     return (
       <nav>

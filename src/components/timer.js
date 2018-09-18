@@ -90,13 +90,13 @@ export class Timer extends React.Component {
         >Change task</button>;
     }
 
-    let timerButton = <button disabled>Start</button>
+    let timerButton = <button className="timer-button" disabled>Start</button>
     if (this.props.selectedTask && (this.props.timerStatus === 'stopped' || this.props.timerStatus === 'onBreak')) {
-      timerButton = <button onClick={() => this.handleStartTimer()}>Start</button>;
+      timerButton = <button className="timer-button" onClick={() => this.handleStartTimer()}>Start</button>;
     } else if (this.props.selectedTask && (this.props.timerStatus === 'started' || this.props.timerStatus === 'onBreak')) {
-      timerButton = <button onClick={() => this.handleStopTimer()}>Stop</button>
+      timerButton = <button className="timer-button" onClick={() => this.handleStopTimer()}>Stop</button>
     } else if (this.props.timerStatus === 'breakTime') {
-      timerButton = <button onClick={() => this.handleStartBreak()}>Break</button>
+      timerButton = <button className="timer-button" onClick={() => this.handleStartBreak()}>Break</button>
     }
 
     let taskName;

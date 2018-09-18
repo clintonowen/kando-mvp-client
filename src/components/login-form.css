@@ -1,10 +1,11 @@
 .login-form {
-  background-color: lightgray;
+  border: 1px solid gray;
+  border-radius: 4px;
   margin-left: auto;
   margin-right: auto;
   margin-top: 100px;
-  max-width: 400px;
-  padding: 40px;
+  max-width: 300px;
+  padding: 15px;
   padding-top: 20px;
 }
 
@@ -12,21 +13,50 @@
   border: none;
 }
 
+.login-form fieldset .form-error {
+
+}
+
 .login-form legend {
   text-align: center;
 }
 
-.login-form label {
-  display: block;
-  margin-top: 15px;
+.login-form h2 {
+  margin: 0px;
 }
 
-.login-form input {
-  /* border-style: inset; */
+.login-form .form-error {
+  color: rgb(160, 0, 0);
+  font-size: 0.75em;
+}
+
+.login-form .form-input {
+  position: relative;
+}
+
+.login-form .form-input label {
+  display: block;
+  font-size: 0.9em;
+  margin-top: 20px;
+}
+
+.login-form .form-input input {
   border: 1px inset gray;
-  margin-top: 5px;
+  border-radius: 4px;
+  font-size: 1.2em;
   height: 40px;
+  margin-top: 5px;
+  padding: 8px;
   width: 100%;
+}
+
+.login-form .form-input .form-error {
+  bottom: calc(line-height - 14px);
+  margin: 0px;
+  margin-top: 4px;
+  position: absolute;
+  right: 0px;
+  text-align: right;
 }
 
 .login-form button {
@@ -35,4 +65,13 @@
   margin-right: auto;
   margin-top: 36px;
   width: 100%;
+}
+
+.login-form button:enabled {
+  background: maroon;
+  color: white;
+}
+
+.login-form button:enabled:hover, .login-form button:enabled:focus {
+  box-shadow: 1px 1px 4px rgb(61, 61, 61);
 }

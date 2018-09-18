@@ -31,7 +31,7 @@ export const passLength = value =>
 export const matches = field => (value, allValues) => 
 field in allValues && value.trim() === allValues[field].trim()
   ? undefined
-  : 'Does not match';
+  : 'Passwords do not match';
 
 const userRegExp = new RegExp("^[a-zA-Z0-9_]+$")
 export const goodChars = value => 

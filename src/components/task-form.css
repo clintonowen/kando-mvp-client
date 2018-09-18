@@ -9,12 +9,13 @@
   width: calc(100% - 12px);
 }
 
-.form-input {
+.task-form .form-input {
   flex-basis: 100%;
   margin-top: 4px;
+  position: relative;
 }
 
-.form-input label {
+.task-form .form-input label {
   font-size: 0.9em;
   margin: 4px;
 }
@@ -27,8 +28,29 @@
   width: calc(100% - 8px);
 }
 
+.task-form .form-error {
+  /* bottom: calc(line-height - 14px); */
+  color: maroon;
+  font-size: 0.75em;
+  margin: 0px;
+  margin-top: 4px;
+  position: absolute;
+  right: 4px;
+  text-align: right;
+  top: 0px;
+}
+
 .task-form button {
   flex: 1;
   margin: 4px;
   max-width: 80px;
+}
+
+.task-form button[type="submit"]:enabled {
+  background: maroon;
+  color: white;
+}
+
+.task-form button[type="submit"]:enabled:hover, .task-form button[type="submit"]:enabled:focus {
+  box-shadow: 1px 1px 4px rgb(61, 61, 61);
 }

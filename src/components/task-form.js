@@ -42,7 +42,7 @@ export class TaskForm extends React.Component {
         </button>
         <button
           type="submit"
-          disabled={this.props.pristine || this.props.submitting}>
+          disabled={!this.props.valid || this.props.submitting}>
           Submit
         </button>
       </form>

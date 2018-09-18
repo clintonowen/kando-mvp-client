@@ -77,6 +77,7 @@
   display: flex;
   flex-wrap: nowrap;
   margin: 8px;
+  margin-bottom: 0px;
 }
 
 .timeleft-msg {
@@ -92,4 +93,22 @@
   font-weight: bold;
   margin-left: 4px;
   text-align: left;
+}
+
+.timer-button {
+  font-size: 1.3em;
+  height: 36px;
+  margin: 8px;
+  margin-top: 4px;
+  width: 100px;
+}
+
+.timer-button:enabled {
+  background: maroon;
+  border: 1px solid black;
+  color: white;
+}
+
+.timer-button:enabled:hover, .timer-button:enabled:focus {
+  box-shadow: 1px 1px 4px rgb(61, 61, 61);
 }
