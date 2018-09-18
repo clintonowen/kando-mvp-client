@@ -1,6 +1,7 @@
 .login-form {
   border: 1px solid gray;
   border-radius: 4px;
+  font-size: 1.3em;
   margin-bottom: 60px;
   margin-left: auto;
   margin-right: auto;
@@ -14,11 +15,6 @@
   border: none;
 }
 
-.login-form fieldset .form-error {
-  color: rgb(160, 0, 0);
-  font-size: 0.74em;
-}
-
 .login-form legend {
   text-align: center;
 }
@@ -29,7 +25,7 @@
 
 .login-form .form-error {
   color: rgb(160, 0, 0);
-  font-size: 0.72em;
+  font-size: 0.74em;
 }
 
 .login-form .form-input {
@@ -53,7 +49,7 @@
 }
 
 .login-form .form-input .form-error {
-  bottom: calc(line-height - 14px);
+  top: 58px;
   margin: 0px;
   margin-top: 4px;
   position: absolute;

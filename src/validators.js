@@ -33,7 +33,7 @@ field in allValues && value.trim() === allValues[field].trim()
   ? undefined
   : 'Passwords do not match';
 
-const userRegExp = new RegExp("^[a-zA-Z0-9_]+$")
+const userRegExp = new RegExp(/^[a-zA-Z0-9_]+$/)
 export const goodChars = value => 
 userRegExp.test(value)
   ? undefined

@@ -5,13 +5,18 @@
   cursor: move;
   margin: 6px;
   margin-bottom: 0px;
-  padding: 4px;
+  padding: 6px;
   padding-right: 25px;
   position: relative;
 }
 
+/* .task header {
+  font-size: 0.75em;
+} */
+
 .task span {
-  font-size: 0.8em;
+  color: rgb(100, 100, 100);
+  font-size: 0.85em;
 }
 
 .selected {

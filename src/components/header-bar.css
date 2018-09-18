@@ -10,12 +10,11 @@ nav {
 nav h1 {
   display: block;
   color: rgb(150, 0, 0);
-  font-weight: normal;
+  font-weight: 400;
   font-size: 2em;
   margin: 8px;
   margin-left: auto;
   margin-right: auto;
-  /* padding: 0.8em; */
   text-align: center;
   width: 110px;
 }
@@ -40,41 +39,21 @@ nav h1 a:hover {
 
 .nav-menu {
   right: 10px;
-  top: 7px;
+  top: 5px;
 }
 
 .nav-menu .menu-icon div {
-  height: 3px;
+  height: 2px;
   margin: 5px 0 2px;
-  width: 24px;
+  width: 22px;
 }
 
 .nav-menu .menu {
-  right: -10px;
-  top: 8px;
+  right: -11px;
+  top: 4px;
 }
 
 .nav-menu .menu li {
   margin: 12px;
   font-size: 1.2em;
 }
-
-/* nav li.menu-icon {
-  display: none;
-} */
-
-/* @media screen and (max-width: 600px) {
-  nav li {
-    display: none;
-    margin-bottom: 15px;
-  }
-  nav li.menu-icon {
-    display: inline-block;
-  }
-  nav ul.responsive {
-    background-color: lightgray;
-  }
-  nav ul.responsive li {
-    display: block;
-  }
-} */

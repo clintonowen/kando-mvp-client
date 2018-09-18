@@ -1,9 +1,11 @@
 * {
   box-sizing: border-box;
-  font-family: 'Roboto Condensed', sans-serif;
+  font-family: 'Assistant', sans-serif;
 }
 
 body {
+  font-size: 0.75em;
+  font-weight: 400;
   margin: 0;
   padding: 0;
 }
