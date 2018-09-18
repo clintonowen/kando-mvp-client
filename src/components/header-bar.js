@@ -1,10 +1,12 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
+import MediaQuery from 'react-responsive';
 import { clearAuth } from '../actions/auth';
 import { clearAuthToken } from '../local-storage';
 import { showNavMenu, hideNavMenu } from '../actions/activity';
 import { setTimerColumn, unsetTimerColumn } from '../actions/board-data';
+import { DropdownMenu } from './dropdown-menu';
 import './header-bar.css';
 
 export class HeaderBar extends React.Component {
@@ -36,46 +38,92 @@ export class HeaderBar extends React.Component {
     clearAuthToken();
   }
   render() {
-    const responsive = this.props.showNavMenu ? 'responsive' : '';
-    let navLinks = (
-      <ul className={responsive}>
-        <li className="menu-icon">
-          <button onClick={() => this.toggleMenu()}>
-            Menu
-          </button>
-        </li>
-        <li>
-          <Link to="/" onClick={() => this.hideMenu()}>Home</Link>
-        </li>
-        <li>
-          <Link to="/login" onClick={() => this.hideMenu()}>Login</Link>
-        </li>
-      </ul>
-    );
-    if (this.props.location.pathname === '/board') {
-      navLinks = (
-        <ul className={responsive}>
-          <li className="menu-icon">
-            <button onClick={() => this.toggleMenu()}>
-              Menu
-            </button>
-          </li>
-          <li>
-            <a href="#app" onClick={() => this.toggleTimer()}>Timer</a>
-          </li>
-          <li>
-            <a href="#app" onClick={() => this.handleLogOut()}>Log out</a>
-          </li>
-        </ul>
-      );
-    }
+    let links = (this.props.location.pathname === '/')
+      ? [
+        {
+          onClick: () => this.hideMenu(),
+          text: 'Home',
+          href: "/"
+        },
+        {
+          onClick: () => this.hideMenu(),
+          text: 'Login',
+          href: "/login"
+        }
+      ]
+      : [
+        {
+          onClick: () => this.toggleTimer(),
+          text: 'Timer',
+          href: "#app"
+        },
+        {
+          onClick: () => this.handleLogOut(),
+          text: 'Log out',
+          href: "#app"
+        }
+      ];
+
+    // const responsive = this.props.showNavMenu ? 'responsive' : '';
+    // let navLinks = (
+    //   <ul className={responsive}>
+    //     <li className="menu-icon">
+    //       <button onClick={() => this.toggleMenu()}>
+    //         Menu
+    //       </button>
+    //     </li>
+    //     <li>
+    //       <Link to="/" onClick={() => this.hideMenu()}>Home</Link>
+    //     </li>
+    //     <li>
+    //       <Link to="/login" onClick={() => this.hideMenu()}>Login</Link>
+    //     </li>
+    //   </ul>
+    // );
+    // if (this.props.location.pathname === '/board') {
+    //   navLinks = (
+    //     <ul className={responsive}>
+    //       <li className="menu-icon">
+    //         <button onClick={() => this.toggleMenu()}>
+    //           Menu
+    //         </button>
+    //       </li>
+    //       <li>
+    //         <a href="#app" onClick={() => this.toggleTimer()}>Timer</a>
+    //       </li>
+    //       <li>
+    //         <a href="#app" onClick={() => this.handleLogOut()}>Log out</a>
+    //       </li>
+    //     </ul>
+    //   );
+    // }
     
     return (
       <nav>
         <header>
           <h1>KanDo</h1>
         </header>
-        {navLinks}
+        <MediaQuery minWidth={701}>
+          <ul className="desktop-links">
+            {links.map((link, i) => {
+              return (
+                <li key={`navlinks-${i}`}>
+                  <Link to={link.href} onClick={() => link.onClick()}>
+                    {link.text}
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </MediaQuery>
+        <MediaQuery maxWidth={700}>
+          <DropdownMenu
+            classes="nav-menu"
+            showMenu={this.props.showNavMenu}
+            toggleMenu={() => this.toggleMenu()}
+            links={links}
+          />
+        </MediaQuery>
       </nav>
     );
   }

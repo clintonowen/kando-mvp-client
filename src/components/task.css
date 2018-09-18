@@ -5,47 +5,13 @@
   margin: 6px;
   margin-bottom: 0px;
   padding: 4px;
+  padding-right: 25px;
   position: relative;
 }
-
-/* .task {
-  pointer-events: none;
-} */
 
 .task span {
   font-size: 0.8em;
 }
-
-/* .task header ul {
-  right: 0px;
-  padding-left: 1px;
-  padding-right: 1px;
-  position: absolute;
-  text-align: center;
-  top: -15px;
-}
-
-.task header li {
-  display: none;
-  margin-bottom: 8px;
-}
-
-.task .menu-icon {
-  display: inline-block;
-  cursor: pointer;
-}
-
-.task .menu-icon button {
-  height: 24px;
-}
-
-.task header ul.responsive {
-  background-color: lightgray;
-}
-
-.task header ul.responsive li {
-  display: block;
-} */
 
 .selected {
   border: 2px dashed maroon;

@@ -34,6 +34,7 @@ export class Task extends React.Component {
     let timeSpent;
     let containerClasses = 'task-container'
     let taskClasses = 'task';
+    let menuClasses = 'task-menu';
     if (this.props.selected === true) {
       containerClasses += ' selected';
     }
@@ -43,6 +44,7 @@ export class Task extends React.Component {
     if (isDragging) {
       containerClasses += ' dragged-border';
       taskClasses += ' dragged-content';
+      menuClasses += ' dragged-content';
     }
     if (this.props.time) {
       let duration = '';
@@ -71,13 +73,14 @@ export class Task extends React.Component {
           onClick={() => this.handleTaskClick(this.props.taskId)}
       >
       <DropdownMenu
-        classes="task-menu"
+        classes={menuClasses}
         showMenu={this.props.showTaskMenu}
         toggleMenu={() => this.toggleMenu()}
         links={[
           {
             onClick: () => this.handleDelete(),
-            text: 'Delete'
+            text: 'Delete',
+            href: "#app"
           }
         ]}
       />

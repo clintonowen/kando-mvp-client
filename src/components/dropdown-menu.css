@@ -12,7 +12,7 @@
   margin-bottom: 8px;
   position: relative;
   right: 0px;
-  top: 4px;
+  top: 3px;
 }
 
 .menu-container button:hover > div {
@@ -31,8 +31,9 @@
 }
 
 .menu {
-  background: lightgray;
+  background: white;
   border: 1px solid gray;
+  box-shadow: 1px 1px 5px gray;
   display: block;
   padding: 2px;
   position: relative;
@@ -51,5 +52,5 @@
 }
 
 .menu li {
-  margin: 2px;
+  margin: 6px;
 }

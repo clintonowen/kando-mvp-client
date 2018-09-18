@@ -18,7 +18,7 @@ nav h1 {
   width: 110px;
 }
 
-nav ul {
+.desktop-links {
   right: 0px;
   padding-left: 15px;
   padding-right: 5px;
@@ -26,16 +26,38 @@ nav ul {
   top: 0px;
 }
 
-nav li {
+.desktop-links li {
   display: inline-block;
-  margin-right: 15px;
+  font-size: 1.2em;
+  margin-right: 18px;
 }
 
-nav li.menu-icon {
+.nav-menu {
+  right: 10px;
+  top: 7px;
+}
+
+.nav-menu .menu-icon div {
+  height: 3px;
+  margin: 5px 0 2px;
+  width: 24px;
+}
+
+.nav-menu .menu {
+  right: -10px;
+  top: 8px;
+}
+
+.nav-menu .menu li {
+  margin: 12px;
+  font-size: 1.2em;
+}
+
+/* nav li.menu-icon {
   display: none;
-}
+} */
 
-@media screen and (max-width: 600px) {
+/* @media screen and (max-width: 600px) {
   nav li {
     display: none;
     margin-bottom: 15px;
@@ -49,4 +71,4 @@ nav li.menu-icon {
   nav ul.responsive li {
     display: block;
   }
-}
+} */

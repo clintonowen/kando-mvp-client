@@ -126,7 +126,8 @@ export class Timer extends React.Component {
               links={[
                 {
                   onClick: () => this.hideTimer(),
-                  text: 'Hide'
+                  text: 'Hide',
+                  href: "#app"
                 }
               ]}
             />
