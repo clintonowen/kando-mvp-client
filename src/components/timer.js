@@ -8,8 +8,20 @@ import { DropdownMenu } from './dropdown-menu';
 import './timer.css';
 
 export class Timer extends React.Component {
+  componentDidMount() {
+    this.handleOverflow();
+  }
+  componentDidUpdate() {
+    this.handleOverflow();
+  }
   componentWillUnmount() {
     this.handleClearTimers();
+  }
+  handleOverflow() {
+    const timerColumn = document.getElementsByClassName('timer')[0].parentElement;
+    if (timerColumn.scrollHeight > timerColumn.clientHeight) {
+      this.hideTimer();
+    }
   }
   handleStartTimer() {
     this.handleClearTimers();
@@ -163,7 +175,8 @@ const mapStateToProps = state => ({
   selectStatus: state.timer.selectStatus,
   selectedTask: state.timer.selectedTask,
   columns: state.boardData.columns,
-  showTimerMenu: state.timer.showTimerMenu
+  showTimerMenu: state.timer.showTimerMenu,
+  windowDimensions: state.activity.windowSize
 });
 
 export default connect(mapStateToProps)(Timer);

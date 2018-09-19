@@ -46,3 +46,7 @@
   top: 22px;
   width: 100%;
 }
+
+.scrollable::-webkit-scrollbar {
+  width: 0px;
+}

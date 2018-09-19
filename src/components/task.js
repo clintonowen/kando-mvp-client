@@ -38,9 +38,6 @@ export class Task extends React.Component {
     };
     this.props.dispatch(updateColumn(this.props.columnId, updateData));
   }
-  getStateCols() {
-    return this.props.columns;
-  }
   render() {
     const { isDragging, connectDragSource, connectDropTarget } = this.props;
 

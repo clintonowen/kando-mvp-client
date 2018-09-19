@@ -1,12 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Route, withRouter } from 'react-router-dom';
-
 import HeaderBar from './header-bar';
 import LandingPage from './landing-page';
 import LoginForm from './login-form';
 import SignupForm from './signup-form';
 import Board from './board';
+import WindowDimensions from './window-dimensions';
 import { refreshAuthToken } from '../actions/auth';
 
 class App extends React.Component {
@@ -40,6 +40,7 @@ class App extends React.Component {
       <Route exact path="/login" component={LoginForm} />
       <Route exact path="/signup" component={SignupForm} />
       <Route exact path="/board" component={Board} />
+      <WindowDimensions />
       </div>
     );
   }
