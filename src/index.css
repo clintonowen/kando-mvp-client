@@ -3,6 +3,10 @@
   font-family: 'Assistant', sans-serif;
 }
 
+*:focus {
+  outline: none;
+}
+
 html, body, #root, #app {
   min-height: 100%;
 }
@@ -31,7 +35,6 @@ button {
 
 button:focus {
   border: 1px solid black;
-  outline: none;
 }
 
 button:enabled:hover {

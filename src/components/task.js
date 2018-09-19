@@ -20,6 +20,12 @@ export class Task extends React.Component {
     if (this.props.selectStatus === 'started') {
       this.props.dispatch(selectTask(taskId));
       this.props.dispatch(stopSelect());
+
+      const allElements = document.getElementsByTagName('*');
+      for (let i = 0; i < allElements.length; i++) {
+        allElements[i].removeAttribute('tabIndex');
+        // allElements[i].removeAttribute('aria-hidden');
+      }
     }
   }
   handleUpdateColumn(columnId, updateData) {
@@ -40,6 +46,7 @@ export class Task extends React.Component {
   }
   render() {
     const { isDragging, connectDragSource, connectDropTarget } = this.props;
+    const ariaHidden = (this.props.selectStatus === 'started') ? true : false;
 
     let timeSpent;
     let containerClasses = 'task-container'
@@ -71,7 +78,7 @@ export class Task extends React.Component {
       if (minutes > 0) {
         duration += `${minutes}m`;
       }
-      timeSpent = <span>Time spent: {duration}</span>
+      timeSpent = <span aria-hidden={ariaHidden}>Time spent: {duration}</span>
     }
 
     return connectDragSource(connectDropTarget(
@@ -82,24 +89,26 @@ export class Task extends React.Component {
           columnid={this.props.columnid}
           onClick={() => this.handleTaskClick(this.props.taskId)}
       >
-      <DropdownMenu
-        classes={menuClasses}
-        showMenu={this.props.showTaskMenu}
-        toggleMenu={() => this.toggleMenu()}
-        links={[
-          {
-            onClick: () => this.handleDelete(),
-            text: 'Delete',
-            href: "#app"
-          }
-        ]}
-      />
         <section className={taskClasses}>
           <header>
             {this.props.name}
           </header>
           {timeSpent}
         </section>
+        <DropdownMenu
+          classes={menuClasses}
+          showMenu={this.props.showTaskMenu}
+          toggleMenu={() => this.toggleMenu()}
+          links={[
+            {
+              onClick: () => this.handleDelete(),
+              text: 'Delete',
+              href: "#app"
+            }
+          ]}
+          ariaHidden={ariaHidden}
+        />
+        <button aria-label={this.props.name} className="select-task" tabIndex="-1" aria-hidden="true"></button>
       </div>
     ));
   }

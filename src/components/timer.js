@@ -68,9 +68,32 @@ export class Timer extends React.Component {
   }
   handleStartSelect() {
     this.props.dispatch(startSelect());
+
+    const allElements = document.getElementsByTagName('*');
+    for (let i = 0; i < allElements.length; i++) {
+      if (allElements[i].className !== 'select-task'
+        && allElements[i].className !== 'select-button'
+        && allElements[i].className !== 'col-header') {
+        allElements[i].tabIndex = -1;
+        // allElements[i].setAttribute('aria-hidden', 'true');
+      } else {
+        allElements[i].tabIndex = 1;
+        // allElements[i].setAttribute('aria-hidden', 'false');
+      }
+    }
   }
   handleStopSelect() {
     this.props.dispatch(stopSelect());
+
+    const allElements = document.getElementsByTagName('*');
+    for (let i = 0; i < allElements.length; i++) {
+      if (allElements[i].className === 'select-task') {
+        allElements[i].tabIndex = -1;
+      } else {
+        allElements[i].removeAttribute('tabIndex');
+        // allElements[i].removeAttribute('aria-hidden');
+      }
+    }
   }
   toggleMenu() {
     if (this.props.showTimerMenu) {
@@ -84,31 +107,56 @@ export class Timer extends React.Component {
     this.props.dispatch(hideTimerMenu());
   }
   render() {
+    const ariaHidden = (this.props.selectStatus === 'started') ? true : false;
     let timeLeft = moment(this.props.timeLeft).format('mm:ss');
 
     let selectButton = <button
         className="select-button"
-        onClick={() => this.handleStartSelect()}
-      >Select a task</button>
+        onClick={() => this.handleStartSelect()}>
+          Select a task
+        </button>
     if (this.props.selectStatus === 'started') {
       selectButton = <button
+          aria-label="Cancel select task"
           className="select-button"
-          onClick={() => this.handleStopSelect()}
-        >Cancel</button>
+          onClick={() => this.handleStopSelect()}>
+            Cancel
+          </button>
     } else if (this.props.selectedTask) {
       selectButton = <button
           className="select-button"
-          onClick={() => this.handleStartSelect()}
-        >Change task</button>;
+          onClick={() => this.handleStartSelect()}>
+            Change task
+          </button>;
     }
 
-    let timerButton = <button className="timer-button" disabled>Start</button>
+    let timerButton = <button
+      className="timer-button"
+      disabled
+      aria-hidden={ariaHidden}>
+        Start
+        </button>
     if (this.props.selectedTask && (this.props.timerStatus === 'stopped' || this.props.timerStatus === 'onBreak')) {
-      timerButton = <button className="timer-button" onClick={() => this.handleStartTimer()}>Start</button>;
+      timerButton = <button
+        className="timer-button"
+        onClick={() => this.handleStartTimer()}
+        aria-hidden={ariaHidden}>
+          Start
+        </button>;
     } else if (this.props.selectedTask && (this.props.timerStatus === 'started' || this.props.timerStatus === 'onBreak')) {
-      timerButton = <button className="timer-button" onClick={() => this.handleStopTimer()}>Stop</button>
+      timerButton = <button
+        className="timer-button"
+        onClick={() => this.handleStopTimer()}
+        aria-hidden={ariaHidden}>
+          Stop
+        </button>
     } else if (this.props.timerStatus === 'breakTime') {
-      timerButton = <button className="timer-button" onClick={() => this.handleStartBreak()}>Break</button>
+      timerButton = <button
+        className="timer-button"
+        onClick={() => this.handleStartBreak()}
+        aria-hidden={ariaHidden}>
+          Break
+        </button>
     }
 
     let taskName;
@@ -128,9 +176,9 @@ export class Timer extends React.Component {
     }
 
     return (
-      <div className="timer">
+      <section aria-label="Pomodoro Timer" className="timer">
         <header>
-          Pomodoro Timer
+          <span aria-hidden="true">Pomodoro Timer</span>
             <DropdownMenu
               classes="timer-menu"
               showMenu={this.props.showTimerMenu}
@@ -142,18 +190,19 @@ export class Timer extends React.Component {
                   href: "#app"
                 }
               ]}
+              ariaHidden={ariaHidden}
             />
         </header>
         <section className="timer-container">
           {selectButton}
-          <section className="task-selected">
+          <section aria-hidden={ariaHidden} className="task-selected">
             <div className="task-selected-msg">
               Task selected:
             </div>
             <div className="task-selected-disp"> {taskName ? taskName : 'None'}
             </div>
           </section>
-          <section className="timeleft">
+          <section aria-hidden={ariaHidden} className="timeleft">
             <div className="timeleft-msg">
               {timeLeftMessage}
             </div>
@@ -163,7 +212,7 @@ export class Timer extends React.Component {
           </section>
           {timerButton}
         </section>
-      </div>
+      </section>
     );
   }
 }

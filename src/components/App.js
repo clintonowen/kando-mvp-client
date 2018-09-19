@@ -35,12 +35,12 @@ class App extends React.Component {
   render() {
     return (
       <div id="app">
-      <HeaderBar />
-      <Route exact path="/" component={LandingPage} />
-      <Route exact path="/login" component={LoginForm} />
-      <Route exact path="/signup" component={SignupForm} />
-      <Route exact path="/board" component={Board} />
-      <WindowDimensions />
+        <HeaderBar />
+        <Route exact path="/" component={LandingPage} />
+        <Route exact path="/login" component={LoginForm} />
+        <Route exact path="/signup" component={SignupForm} />
+        <Route exact path="/board" component={Board} />
+        <WindowDimensions />
       </div>
     );
   }

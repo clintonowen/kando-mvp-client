@@ -25,38 +25,42 @@ export class LoginForm extends React.Component {
       );
     }
     return (
-      <form
-        className="login-form"
-        onSubmit={this.props.handleSubmit(values =>
-          this.onSubmit(values)
-        )}>
-        <fieldset>
-          <legend><h2>Login</h2></legend>
-          {error}
-          <Field
-            component={Input}
-            label="Username"
-            type="text"
-            name="username"
-            id="username"
-            validate={[required, nonEmpty]}
-          />
-          <Field
-            component={Input}
-            label="Password"
-            type="password"
-            name="password"
-            id="password"
-            validate={[required, nonEmpty]}
-          />
-          <button disabled={!this.props.valid || this.props.submitting}>
-            Log in
-          </button>
-        </fieldset>
-        <p className="signup-link">
-          New user? <Link to="/signup">Sign up here</Link>
-        </p>
-      </form>
+      <main role="main" className="login">
+        <form
+          className="login-form"
+          onSubmit={this.props.handleSubmit(values =>
+            this.onSubmit(values)
+          )}>
+          <fieldset>
+            <legend><h2>Login</h2></legend>
+            {error}
+            <Field
+              component={Input}
+              label="Username"
+              type="text"
+              name="username"
+              id="username"
+              validate={[required, nonEmpty]}
+            />
+            <Field
+              component={Input}
+              label="Password"
+              type="password"
+              name="password"
+              id="password"
+              validate={[required, nonEmpty]}
+            />
+            <button disabled={!this.props.valid || this.props.submitting}>
+              Log in
+            </button>
+          </fieldset>
+        </form>
+        <section className="signup-link">
+          <p>
+            New user? <Link to="/signup">Sign up here</Link>
+          </p>
+        </section>
+      </main>
     );
   }
 }

@@ -1,4 +1,4 @@
-nav {
+.banner {
   background-color: lightgray;
   border-bottom: 1px solid gray;
   height: 43px;
@@ -9,7 +9,7 @@ nav {
   z-index: 100;
 }
 
-nav h1 {
+.banner h1 {
   display: block;
   color: rgb(150, 0, 0);
   font-weight: 400;
@@ -21,7 +21,7 @@ nav h1 {
   width: 110px;
 }
 
-nav h1 a:hover {
+.banner h1 a:hover {
   text-decoration: none;
 }
 

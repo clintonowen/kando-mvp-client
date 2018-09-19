@@ -67,8 +67,8 @@ export class Column extends React.Component {
       <div className="col-horz-flex-container">
         <div className="col-vert-flex-container">
           {connectDropTarget(
-            <section className="column">
-              <header className="col-header">{this.props.name}</header>
+            <section aria-label={`${this.props.name} column`} className="column">
+              <header aria-hidden="true" className="col-header">{this.props.name}</header>
               <div className="scrollable">
                 <div className="taskList">
                   {tasks}

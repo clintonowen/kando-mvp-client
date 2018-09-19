@@ -8,7 +8,7 @@ export function LandingPage(props) {
     return <Redirect to="/board" />;
   }
   return (
-    <div className="overview">
+    <main role="main" className="overview">
       <h2>
         Welcome to KanDo
       </h2>
@@ -18,10 +18,10 @@ export function LandingPage(props) {
       <p>
         Laborum autem et quasi eius est. Nulla in consectetur. Distinctio cupiditate ut eius a eos dignissimos voluptatum asperiores reprehenderit. Voluptatibus omnis quia. Minima quia ut atque.
       </p>
-      <p className="signup-link">
+      <section className="signup-link">
         New user? <Link to="/signup">Sign up here</Link>
-      </p>
-    </div>
+      </section>
+    </main>
   );
 }
 

@@ -67,34 +67,34 @@ export class HeaderBar extends React.Component {
       ];
     
     return (
-      <nav>
-        <header>
-          <h1>
-            <Link to="/" onClick={() => this.hideMenu()}>KanDo</Link>
-          </h1>
-        </header>
-        <MediaQuery minWidth={701}>
-          <ul className="desktop-links">
-            {links.map((link, i) => {
-              return (
-                <li key={`navlinks-${i}`}>
-                  <Link to={link.href} onClick={() => link.onClick()}>
-                    {link.text}
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
-        </MediaQuery>
-        <MediaQuery maxWidth={700}>
-          <DropdownMenu
-            classes="nav-menu"
-            showMenu={this.props.showNavMenu}
-            toggleMenu={() => this.toggleMenu()}
-            links={links}
-          />
-        </MediaQuery>
-      </nav>
+      <header role="banner" className="banner">
+        <h1>
+          <Link to="/" onClick={() => this.hideMenu()}>KanDo</Link>
+        </h1>
+        <nav>
+          <MediaQuery minWidth={701}>
+            <ul className="desktop-links">
+              {links.map((link, i) => {
+                return (
+                  <li key={`navlinks-${i}`}>
+                    <Link to={link.href} onClick={() => link.onClick()}>
+                      {link.text}
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          </MediaQuery>
+          <MediaQuery maxWidth={700}>
+            <DropdownMenu
+              classes="nav-menu"
+              showMenu={this.props.showNavMenu}
+              toggleMenu={() => this.toggleMenu()}
+              links={links}
+            />
+          </MediaQuery>
+        </nav>
+      </header>
     );
   }
 }

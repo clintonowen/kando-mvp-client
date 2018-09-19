@@ -30,56 +30,60 @@ export class SignupForm extends React.Component {
       error = '* Required'
     }
     return (
-      <form
-        className="signup-form"
-        onSubmit={this.props.handleSubmit(values =>
-          this.onSubmit(values)
-        )}>
-        <fieldset>
-          <legend><h2>Sign up</h2></legend>
-          <div className="form-error" aria-live="polite">
-            {error}
-          </div>
-          <Field
-            component={Input}
-            label="Email *"
-            type="text"
-            name="email"
-            id="email"
-            validate={[noEmail, goodEmail]}
-          />
-          <Field
-            component={Input}
-            label="Username *"
-            type="text"
-            name="username"
-            id="username"
-            validate={[noUser, userLength, goodChars, isTrimmed]}
-          />
-          <Field
-            component={Input}
-            label="Password *"
-            type="password"
-            name="password"
-            id="password"
-            validate={[noPass, passLength, isTrimmed]}
-          />
-          <Field
-            component={Input}
-            label="Confirm Password *"
-            type="password"
-            name="confirmPwd"
-            id="confirmPwd"
-            validate={[noConfirm, matchesPassword]}
-          />
-          <button disabled={!this.props.valid || this.props.submitting}>
-            Create Account
-          </button>
-        </fieldset>
-        <p className="login-link">
-          Already have an account? <Link to="/login">Log in here</Link>
-        </p>
-      </form>
+      <main className="signup">
+        <form
+          className="signup-form"
+          onSubmit={this.props.handleSubmit(values =>
+            this.onSubmit(values)
+          )}>
+          <fieldset>
+            <legend><h2>Sign up</h2></legend>
+            <div className="form-error" aria-live="polite">
+              {error}
+            </div>
+            <Field
+              component={Input}
+              label="Email *"
+              type="text"
+              name="email"
+              id="email"
+              validate={[noEmail, goodEmail]}
+            />
+            <Field
+              component={Input}
+              label="Username *"
+              type="text"
+              name="username"
+              id="username"
+              validate={[noUser, userLength, goodChars, isTrimmed]}
+            />
+            <Field
+              component={Input}
+              label="Password *"
+              type="password"
+              name="password"
+              id="password"
+              validate={[noPass, passLength, isTrimmed]}
+            />
+            <Field
+              component={Input}
+              label="Confirm Password *"
+              type="password"
+              name="confirmPwd"
+              id="confirmPwd"
+              validate={[noConfirm, matchesPassword]}
+            />
+            <button disabled={!this.props.valid || this.props.submitting}>
+              Create Account
+            </button>
+          </fieldset>
+        </form>
+        <section className="login-link">
+          <p>
+            Already have an account? <Link to="/login">Log in here</Link>
+          </p>
+        </section>
+      </main>
     );
   }
 }
