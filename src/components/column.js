@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { DropTarget } from 'react-dnd';
-import { pushTask, removeTask, moveTask } from '../actions/board-data';
+import { pushTask, removeTask, updateColumn } from '../actions/board-data';
 import Task from './task';
 import AddTask from './add-task';
 import TaskForm from './task-form';
@@ -15,8 +15,19 @@ export class Column extends React.Component {
   handleRemoveTask(taskId, columnId) {
     this.props.dispatch(removeTask(taskId, columnId));
   }
-  handleMoveTask(task, dragIndex, hoverIndex, columnId) {
-    this.props.dispatch(moveTask(task, dragIndex, hoverIndex, columnId));
+  handleSyncCols(prevColId, taskId) {
+    const columns = this.props.columns;
+    const newCol = this.props.columns.find(column => {
+      return column.tasks.find(task => task.id === taskId);
+    });
+    if (prevColId !== newCol.id) {
+      this.props.dispatch(updateColumn(newCol.id, {
+        tasks: newCol.tasks.map(task => task.id)
+      }));
+    }
+    this.props.dispatch(updateColumn(prevColId, {
+      tasks: columns.find(column => column.id === prevColId).tasks.map(task => task.id)
+    }));
   }
   render() {
     const { connectDropTarget } = this.props;
@@ -35,7 +46,7 @@ export class Column extends React.Component {
               task={task}
               time={task.time}
               selected={selected}
-              moveTask={this.handleMoveTask.bind(this)}
+              syncCols={this.handleSyncCols.bind(this)}
               showTaskMenu={task.showTaskMenu}
             />
           );
@@ -58,10 +69,12 @@ export class Column extends React.Component {
           {connectDropTarget(
             <section className="column">
               <header className="col-header">{this.props.name}</header>
+              <div className="scrollable">
                 <div className="taskList">
                   {tasks}
                 </div>
-              {addTask}
+                {addTask}
+              </div>
             </section>
           )}
           {timer}

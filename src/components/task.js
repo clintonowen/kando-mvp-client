@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { findDOMNode } from 'react-dom';
 import { DragSource, DropTarget } from 'react-dnd';
 import moment from 'moment';
-import { updateColumn, deleteTask, hideTaskMenu, showTaskMenu } from '../actions/board-data';
+import { updateColumn, moveTask, deleteTask, hideTaskMenu, showTaskMenu } from '../actions/board-data';
 import { selectTask, stopSelect } from '../actions/timer';
 import { DropdownMenu } from './dropdown-menu';
 import './task.css';
@@ -25,6 +25,9 @@ export class Task extends React.Component {
   handleUpdateColumn(columnId, updateData) {
     this.props.dispatch(updateColumn(columnId, updateData));
   }
+  handleMoveTask(task, dragIndex, hoverIndex, columnId) {
+    this.props.dispatch(moveTask(task, dragIndex, hoverIndex, columnId));
+  }
   handleDelete() {
     this.props.dispatch(deleteTask(this.props.taskId));
     const updateData = {
@@ -34,6 +37,9 @@ export class Task extends React.Component {
         .filter(taskId => taskId !== this.props.taskId)
     };
     this.props.dispatch(updateColumn(this.props.columnId, updateData));
+  }
+  getStateCols() {
+    return this.props.columns;
   }
   render() {
     const { isDragging, connectDragSource, connectDropTarget } = this.props;
@@ -111,21 +117,7 @@ const taskSource = {
     };
   },
   endDrag(props, monitor){
-    const sourceColumn = props.columnId;
-    const targetColumn = monitor.getDropResult().columnId;
-    const columns = monitor.getDropResult().columns;
-    const sourceData = {
-      tasks: columns.find(column => column.id === sourceColumn)
-        .tasks.map(task => task.id)
-    };
-    props.dispatch(updateColumn(sourceColumn, sourceData));
-    if (targetColumn !== sourceColumn) {
-      const targetData = {
-        tasks: columns.find(column => column.id === targetColumn)
-          .tasks.map(task => task.id)
-      };
-      props.dispatch(updateColumn(targetColumn, targetData));
-    }
+    props.syncCols(props.columnId, props.taskId);
   },
   isDragging(props, monitor) {
     return props.task.id === monitor.getItem().task.id;
@@ -170,7 +162,7 @@ const taskTarget = {
 
     // Time to actually perform the action
     if (dragIndex !== hoverIndex) {
-      props.moveTask(monitor.getItem().task, dragIndex, hoverIndex, props.columnId);
+      props.dispatch(moveTask(monitor.getItem().task, dragIndex, hoverIndex, props.columnId));
 
       // Note: we're mutating the monitor item here!
 			// Generally it's better to avoid mutations,
