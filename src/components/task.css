@@ -1,5 +1,5 @@
 .task-container {
-  background: lightgray;
+  background: rgb(230, 230, 230);
   border: 1px solid gray;
   border-radius: 4px;
   cursor: move;
@@ -10,12 +10,8 @@
   position: relative;
 }
 
-/* .task header {
-  font-size: 0.75em;
-} */
-
 .task span {
-  color: rgb(100, 100, 100);
+  color: rgb(103, 103, 103);
   font-size: 0.85em;
 }
 

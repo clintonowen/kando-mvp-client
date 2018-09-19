@@ -1,10 +1,12 @@
 .board-wrapper {
-  height: calc(100vh - 53px);
+  bottom: 0px;
   padding: 3px;
   padding-right: 0px;
-  margin-top: 53px;
   overflow-x: scroll;
-  overflow-y: hidden;
+  overflow-y: visible;
+  position: absolute;
+  top: 43px;
+  width: 100%
 }
 
 .board {
@@ -36,7 +38,7 @@
   height: 100%;
   left: 0px;
   position: fixed;
-  top: 53px;
+  /* top: 44px; */
   width: 100%;
   z-index: 1;
 }

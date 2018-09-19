@@ -43,7 +43,7 @@ export class DropdownMenu extends React.Component {
       : (null);
     return (
       <div className={`menu-container ${this.props.classes}`}>
-        <button className="menu-icon" onClick={() => this.props.toggleMenu()}>
+        <button aria-label="menu" label="menu" className="menu-icon" onClick={() => this.props.toggleMenu()}>
           <div></div>
           <div></div>
           <div></div>

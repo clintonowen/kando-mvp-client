@@ -19,7 +19,8 @@
   border: none;
 }
 
-.menu-container button:hover > div {
+.menu-container button:hover > div,
+.menu-container button:focus > div {
   background-color: black;
 }
 

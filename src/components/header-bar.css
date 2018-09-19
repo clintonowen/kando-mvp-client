@@ -1,7 +1,9 @@
 nav {
   background-color: lightgray;
   border-bottom: 1px solid gray;
-  position: fixed;
+  height: 43px;
+  padding: 8px;
+  position: relative;
   top: 0px;
   width: 100%;
   z-index: 100;
@@ -12,7 +14,7 @@ nav h1 {
   color: rgb(150, 0, 0);
   font-weight: 400;
   font-size: 2em;
-  margin: 8px;
+  margin: 0px;
   margin-left: auto;
   margin-right: auto;
   text-align: center;
@@ -50,7 +52,7 @@ nav h1 a:hover {
 
 .nav-menu .menu {
   right: -11px;
-  top: 4px;
+  top: 3px;
 }
 
 .nav-menu .menu li {
