@@ -6,7 +6,7 @@ import { clearAuth } from '../actions/auth';
 import { clearAuthToken } from '../local-storage';
 import { showNavMenu, hideNavMenu } from '../actions/activity';
 import { setTimerColumn, unsetTimerColumn } from '../actions/board-data';
-import { DropdownMenu } from './dropdown-menu';
+// import { DropdownMenu } from './dropdown-menu';
 import './header-bar.css';
 
 export class HeaderBar extends React.Component {
@@ -72,7 +72,7 @@ export class HeaderBar extends React.Component {
           <Link to="/" onClick={() => this.hideMenu()}>KanDo</Link>
         </h1>
         <nav>
-          <MediaQuery minWidth={700}>
+          {/* <MediaQuery minWidth={700}> */}
             <ul className="desktop-links">
               {links.map((link, i) => {
                 return (
@@ -84,15 +84,15 @@ export class HeaderBar extends React.Component {
                 );
               })}
             </ul>
-          </MediaQuery>
-          <MediaQuery maxWidth={699}>
+          {/* </MediaQuery> */}
+          {/* <MediaQuery maxWidth={699}>
             <DropdownMenu
               classes="nav-menu"
               showMenu={this.props.showNavMenu}
               toggleMenu={() => this.toggleMenu()}
               links={links}
             />
-          </MediaQuery>
+          </MediaQuery> */}
         </nav>
       </header>
     );
