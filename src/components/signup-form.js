@@ -55,7 +55,7 @@ export class SignupForm extends React.Component {
               type="text"
               name="username"
               id="username"
-              validate={[noUser, userLength, goodChars, isTrimmed]}
+              validate={[noUser, isTrimmed, userLength, goodChars]}
             />
             <Field
               component={Input}
@@ -63,7 +63,7 @@ export class SignupForm extends React.Component {
               type="password"
               name="password"
               id="password"
-              validate={[noPass, passLength, isTrimmed]}
+              validate={[noPass, isTrimmed, passLength]}
             />
             <Field
               component={Input}
