@@ -72,7 +72,7 @@ export class HeaderBar extends React.Component {
           <Link to="/" onClick={() => this.hideMenu()}>KanDo</Link>
         </h1>
         <nav>
-          <MediaQuery minWidth={701}>
+          <MediaQuery minWidth={700}>
             <ul className="desktop-links">
               {links.map((link, i) => {
                 return (
@@ -85,7 +85,7 @@ export class HeaderBar extends React.Component {
               })}
             </ul>
           </MediaQuery>
-          <MediaQuery maxWidth={700}>
+          <MediaQuery maxWidth={699}>
             <DropdownMenu
               classes="nav-menu"
               showMenu={this.props.showNavMenu}

@@ -5,7 +5,6 @@ import { pushTask, removeTask, updateColumn } from '../actions/board-data';
 import Task from './task';
 import AddTask from './add-task';
 import TaskForm from './task-form';
-import Timer from './timer';
 import './column.css';
 
 export class Column extends React.Component {
@@ -31,6 +30,10 @@ export class Column extends React.Component {
   }
   render() {
     const { connectDropTarget } = this.props;
+    let classes = 'column';
+    if (this.props.mobile) {
+      classes += ' column-mobile';
+    }
     let tasks;
     if (this.props.tasks.length > 0) {
       tasks = this.props.tasks
@@ -54,32 +57,20 @@ export class Column extends React.Component {
       );
     }
 
-    let timer;
-    if (this.props.showTimer) {
-      timer = <Timer />
-    }
-
     let addTask = <AddTask columnId={this.props.id} />
     if (this.props.showTaskForm) {
       addTask = <TaskForm columnId={this.props.id} />
     }
-    return (
-      <div className="col-horz-flex-container">
-        <div className="col-vert-flex-container">
-          {connectDropTarget(
-            <section aria-label={`${this.props.name} column`} className="column">
-              <header aria-hidden="true" className="col-header">{this.props.name}</header>
-              <div className="scrollable">
-                <div className="taskList">
-                  {tasks}
-                </div>
-                {addTask}
-              </div>
-            </section>
-          )}
-          {timer}
+    return connectDropTarget(
+      <section aria-label={`${this.props.name} column`} className={classes}>
+        <header aria-hidden="true" className="col-header">{this.props.name}</header>
+        <div className="scrollable">
+          <div className="taskList">
+            {tasks}
+          </div>
+          {addTask}
         </div>
-      </div>
+      </section>
     );
   }
 }
