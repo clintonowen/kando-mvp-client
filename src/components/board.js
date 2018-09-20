@@ -129,12 +129,12 @@ export class Board extends React.Component {
     }
     return (
       <div className="board-wrapper">
-        {dimOverlay}
         <MediaQuery minWidth={700} >
           {(matches) => {
             if (matches) {
               return (
                 <main className="board">
+                {dimOverlay}
                   <div className="left-center-columns"></div>
                     {columns}
                   <div className="right-center-columns"></div>
