@@ -11,6 +11,10 @@ import Timer from './timer';
 import './board.css';
 
 export class Board extends React.Component {
+  state = {
+    swipeIndex: 0,
+    hoverZones: true
+  }
   componentDidMount() {
     this.props.dispatch(fetchColumns())
       .then(() => {
@@ -23,10 +27,51 @@ export class Board extends React.Component {
       });
   }
 
+  handleChangeIndex = (index) => {
+    this.setState({
+      swipeIndex: index,
+    })
+  }
+
+  handleHoverRight = () => {
+    console.log('handleHoverRight ran');
+    if (this.state.swipeIndex < this.props.columns.length - 1
+      && this.state.hoverZones === true) {
+      this.setState(Object.assign({}, this.state, {
+        swipeIndex: this.state.swipeIndex + 1,
+        hoverZones: false
+      }));
+      setTimeout(() => {
+        this.setState(Object.assign({}, this.state, {
+          hoverZones: true
+        }));
+      }, 1000);
+    }
+  }
+
+  handleHoverLeft = () => {
+    console.log('handleHoverLeft ran');
+    if (this.state.swipeIndex > 0 && this.state.hoverZones === true) {
+      this.setState(Object.assign({}, this.state, {
+        swipeIndex: this.state.swipeIndex - 1,
+        hoverZones: false
+      }));
+      setTimeout(() => {
+        this.setState(Object.assign({}, this.state, {
+          hoverZones: true
+        }));
+      }, 1000);
+    }
+  }
+
   render() {
     let columns = (
       <div></div>
     );
+    let mobileTimer;
+    if (this.props.columns.find(column => column.showTimer)) {
+      mobileTimer = <Timer />;
+    }
     if (this.props.columns.length > 0) {
       columns = this.props.columns
         .map((column) => {
@@ -98,13 +143,27 @@ export class Board extends React.Component {
             } else {
               return (
                 <main className="board">
-                  <SwipeableViews
-                    style={styles.root}
-                    slideStyle={styles.slideContainer}
-                    enableMouseEvents
-                    children={columns}
-                    >
-                  </SwipeableViews>
+                  <div className="left-hover-zone"
+                    onDragOver={() => this.handleHoverLeft()}>
+                  </div>
+                  <div className="col-vert-flex-container">
+                    <SwipeableViews
+                      index={this.state.swipeIndex}
+                      onChangeIndex={this.handleChangeIndex}
+                      style={styles.root}
+                      slideStyle={styles.slideContainer}
+                      enableMouseEvents
+                      resistance
+                      >
+                      {columns}
+                    </SwipeableViews>
+                    <div style={{padding: '0 50px'}}>
+                      {mobileTimer}
+                    </div>
+                  </div>
+                  <div className="right-hover-zone"
+                    onDragOver={() => this.handleHoverRight()}>
+                  </div>
                 </main>
               );
             }
