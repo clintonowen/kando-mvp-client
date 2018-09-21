@@ -1,16 +1,49 @@
 .overview {
-  font-size: 1.2em;
+  font-size: 1.3em;
+  font-weight: 300;
+  line-height: 1.3em;
+  margin-bottom: 200px;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 52px;
-  max-width: 800px;
+  max-width: 600px;
   padding: 15px;
 }
 
 .overview h2 {
+  font-size: 1.3em;
+  font-weight: 300;
   text-align: center;
 }
 
-.signup-link {
+.overview h3 {
+  color: rgb(150, 0, 0);
+  font-size: 1.2em;
+  font-weight: 300;
   text-align: center;
+}
+
+.overview p {
+  font-weight: 300;
+}
+
+.overview strong {
+  font-weight: 600;
+}
+
+.overview li {
+  margin: 10px 0;
+}
+
+.overview hr {
+  margin: 20px 0 20px;
+}
+
+.newuser-link {
+  font-size: 1.3em;
+  line-height: 1.7em;
+  text-align: center;
+}
+
+.kando {
+  color: rgb(150, 0, 0);
 }

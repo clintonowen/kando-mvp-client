@@ -94,7 +94,7 @@
 .timeleft-disp {
   flex: 1;
   font-size: 2.5em;
-  font-weight: bold;
+  font-weight: 700;
   text-align: left;
 }
 

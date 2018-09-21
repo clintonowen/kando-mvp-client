@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
-import MediaQuery from 'react-responsive';
+// import MediaQuery from 'react-responsive';
 import { clearAuth } from '../actions/auth';
 import { clearAuthToken } from '../local-storage';
 import { showNavMenu, hideNavMenu } from '../actions/activity';
