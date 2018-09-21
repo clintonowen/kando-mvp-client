@@ -2,6 +2,13 @@ language: node_js
 node_js: node
 cache:
   directories:
-    - node_modules
+  - node_modules
 env:
-  - CI=true
+- CI=true
+deploy:
+  provider: heroku
+  api_key:
+    secure: IY8X3F0LJb3V/UvXEsmJB6yRTTZ14DVzim4vdz3M6F1iFRqnQZN0Rf6azoce9bJXJG/pfxd6iJHuAWoYdTUZZv2q6e6RlKKS2n7UYDmgij3smBLvnNu5y5ZE+v1tKqJRG7Mydk4F59zK3lPURJplFupPIvkYnD99XWk72k/Pb7ibdm4pvgCxbKXjz1EWnHuP274L/ebJdepk2RSfErJPcwaWUc6pyW2r2DsG63gI4/kVTash6hWv2XcSxGz2l+rLgpQcbl0hdcX6YoN6dVZ8fvCuYLkiofqQufvXEmq7QXtlMYEW+QDpjcZ7fnvHzejyQTI/oY5AJkgszT6G43WlYD+KNuPYlVRXNIXJ08Ziu6RpTIB0RzuVJgXJTV1dZ0Fx1E2YLGNOrbG//Mf5XDwK1AH1h648IqUGKC/k6cMq7m4agr+YrJutSfC8Dz10Ay5+ynPwt2K3Ir3bqhICm23OKmQPUjlgrUmm+8cv5PWkMypuGsBuWNOru56P9rTjYZZixj+yPlJaNMDFtXqjBwcvsUvxJKS3X9Kf2rLkkKZkQF7F5T5ZX0H6HA8zIWFHbQR1Ege610W//KATu8iWt2e+zH6Nvi5auFNLtnj/HoaEWLlw5rFO7ntohjbZTrK2ZvBFstLGUkKQj4lgWOv/YnitnhQ6HfZk3H5aol5ceRussUQ=
+  app: kando-mvp
+  on:
+    repo: clintonowen/kando-mvp-client
