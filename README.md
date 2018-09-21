@@ -1,13 +1,15 @@
 # KanDo
-<!-- > Short blurb about what your product does. -->
+> Get organized. Stay focused. Do more.
 
-<!-- [![NPM Version][npm-image]][npm-url]
+<!-- [![NPM Version][npm-image]][npm-url] -->
 [![Build Status][travis-image]][travis-url]
-[![Downloads Stats][npm-downloads]][npm-url] -->
+<!-- [![Downloads Stats][npm-downloads]][npm-url] -->
 
-<!-- One to two paragraph statement about your product and what it does. -->
+## [Live App](https://kando-mvp.herokuapp.com)
 
-<!-- ![](header.png) -->
+KanDo is a productivity tool which combines the organizational philosophies of Personal Kanban with the time management system of the Pomodoro Technique.
+
+![](images/screenshot-5.png)
 
 <!-- ## Installation
 
@@ -25,18 +27,71 @@ edit autoexec.bat
 
 <!-- ## Usage example
 
-A few motivating and useful examples of how your product can be used. Spice this up with code blocks and potentially more screenshots.
+A few motivating and useful examples of how your product can be used. Spice this up with code blocks and potentially more screenshots. -->
 
-_For more examples and usage, please refer to the [Wiki][wiki]._ -->
+<!-- _For more examples and usage, please refer to the [Wiki][wiki]._ -->
 
-<!-- ## Development setup
+## Technology Stack
+**Front End**:
+* React (via [create-react-app](https://github.com/facebook/create-react-app)), React Router
+* Redux, Redux Thunk, Redux Form
+* JavaScript
+* HTML, CSS
 
-Describe how to install all development dependencies and how to run an automated test-suite of some kind. Potentially do this for multiple platforms.
+**Back End** ([Server GitHub Repo](https://github.com/clintonowen/kando-mvp-server))
+* Node
+* Express
+* Passport, bcrypt (Local & JWT Authentication)
+* Mongoose
+* Mocha, Chai (Testing)
+
+**Database**
+* MongoDB
+
+**CICD**
+* Mocha, Chai
+* TravisCI
+* Heroku
+
+## Main Project Structure
+
+```
+kando-mvp-client/
+├── node_modules/ (see "Development Setup")
+├── public/
+│   └── index.html (static markup)
+├── src/
+│   ├── actions/
+│   ├── components/
+│   │   └── App.js (top-level component)
+│   ├── reducers/
+│   ├── index.js (renders `App` to index.html)
+│   └── store.js (Redux store)
+├── LICENSE (GNU GPLv3)
+├── package.json (NPM dependencies)
+└── README.md
+```
+
+## Development setup
+
+To clone the repo to your local development environment and verify that the test-suite passes, execute the following commands (requires [Node](https://nodejs.org)).
 
 ```sh
-make install
+# Clone the repo
+git clone https://github.com/clintonowen/kando-mvp-client.git
+
+# Move into the project directory
+cd kando-mvp-client
+
+# Install dependencies (in /node_modules/)
+npm i
+
+# Run the test-suite:
 npm test
-``` -->
+
+# Run the app:
+npm start
+```
 
 <!-- ## Release History
 
@@ -53,21 +108,38 @@ npm test
 * 0.0.1
     * Work in progress -->
 
-<!-- ## Meta
-
-Your Name – [@YourTwitter](https://twitter.com/dbader_org) – YourEmail@example.com
-
-Distributed under the XYZ license. See ``LICENSE`` for more information.
-
-[https://github.com/yourname/github-link](https://github.com/dbader/) -->
-
-<!-- ## Contributing
+## Contributing
 
 1. Fork it (<https://github.com/yourname/yourproject/fork>)
 2. Create your feature branch (`git checkout -b feature/fooBar`)
 3. Commit your changes (`git commit -am 'Add some fooBar'`)
 4. Push to the branch (`git push origin feature/fooBar`)
-5. Create a new Pull Request -->
+5. Create a new Pull Request
+
+## Meta
+
+by Clinton Owen – [@CoderClint](https://twitter.com/CoderClint) │ clint@clintonowen.com │ [https://github.com/clintonowen](https://github.com/clintonowen)
+
+Distributed under the GNU GPLv3 License. See ``LICENSE`` for more information.
+
+## Additional Screenshots
+
+### Landing Page:
+![](images/screenshot-1.png)
+### Login Screen:
+![](images/screenshot-2.png)
+### Signup Form:
+![](images/screenshot-3.png)
+### Main KanDo Board:
+![](images/screenshot-4.png)
+### Board + Timer:
+![](images/screenshot-5.png)
+### Mobile View:
+![](images/screenshot-6.png)
+### Mobile Swiping:
+![](images/screenshot-7.png)
+### Mobile Timer Closed:
+![](images/screenshot-8.png)
 
 <!-- Markdown link & img dfn's -->
 [npm-image]: https://img.shields.io/npm/v/datadog-metrics.svg?style=flat-square
