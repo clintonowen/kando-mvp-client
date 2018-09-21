@@ -6,6 +6,7 @@
 <!-- [![Downloads Stats][npm-downloads]][npm-url] -->
 
 ## [Live App](https://kando-mvp.herokuapp.com) (Note: Timer currently set to Ludicrous mode for testing/review)
+( Test Account: &nbsp; **testuser** &nbsp; / &nbsp; **password** )
 
 KanDo is a productivity tool which combines the organizational philosophies of Personal Kanban with the time management system of the Pomodoro Technique.
 
@@ -35,6 +36,7 @@ A few motivating and useful examples of how your product can be used. Spice this
 **Front End**:
 * React (via [create-react-app](https://github.com/facebook/create-react-app)), React Router
 * Redux, Redux Thunk, Redux Form
+* React DnD, React Responsive, React Swipeable Views, Moment.js
 * JavaScript
 * HTML, CSS
 
