@@ -2,7 +2,7 @@
 > Get organized. Stay focused. Do more.
 
 <!-- [![NPM Version][npm-image]][npm-url] -->
-[![Build Status][travis-image]][travis-url]
+[![Build Status](https://travis-ci.org/clintonowen/kando-mvp-client.svg?branch=master)](https://travis-ci.org/clintonowen/kando-mvp-client)
 <!-- [![Downloads Stats][npm-downloads]][npm-url] -->
 
 ## [Live App](https://kando-mvp.herokuapp.com) (Note: Timer currently set to Ludicrous mode for testing/review)
