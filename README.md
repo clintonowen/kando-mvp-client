@@ -5,7 +5,7 @@
 [![Build Status][travis-image]][travis-url]
 <!-- [![Downloads Stats][npm-downloads]][npm-url] -->
 
-## [Live App](https://kando-mvp.herokuapp.com)
+## [Live App](https://kando-mvp.herokuapp.com) (Note: Timer currently set to Ludicrous mode for testing/review)
 
 KanDo is a productivity tool which combines the organizational philosophies of Personal Kanban with the time management system of the Pomodoro Technique.
 
