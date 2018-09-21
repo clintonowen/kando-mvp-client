@@ -9,7 +9,7 @@ import Board from './board';
 import WindowDimensions from './window-dimensions';
 import { refreshAuthToken } from '../actions/auth';
 
-class App extends React.Component {
+export class App extends React.Component {
   componentDidUpdate(prevProps) {
     if (!prevProps.loggedIn && this.props.loggedIn) {
       this.startPeriodicRefresh();
