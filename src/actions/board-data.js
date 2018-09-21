@@ -48,6 +48,20 @@ export const hideTaskForm = (columnId) => ({
   columnId
 });
 
+export const SHOW_EDIT_FORM = 'SHOW_EDIT_FORM';
+export const showEditForm = (taskId, columnId) => ({
+  type: SHOW_EDIT_FORM,
+  taskId,
+  columnId
+});
+
+export const HIDE_EDIT_FORM = 'HIDE_EDIT_FORM';
+export const hideEditForm = (taskId, columnId) => ({
+  type: HIDE_EDIT_FORM,
+  taskId,
+  columnId
+});
+
 export const SHOW_TASK_MENU = 'SHOW_TASK_MENU';
 export const showTaskMenu = (columnId, taskId) => ({
   type: SHOW_TASK_MENU,
@@ -194,6 +208,7 @@ export const updateTask = (taskId, updateData) => (dispatch, getState) => {
     if (updateData.time) {
       dispatch(sendTimeSuccess(data));
     }
+    dispatch(fetchColumns());
   })
   .catch(err => {
     dispatch(fetchError(err));

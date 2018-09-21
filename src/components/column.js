@@ -51,6 +51,7 @@ export class Column extends React.Component {
               selected={selected}
               syncCols={this.handleSyncCols.bind(this)}
               showTaskMenu={task.showTaskMenu}
+              editing={task.editing}
             />
           );
         }
@@ -59,7 +60,7 @@ export class Column extends React.Component {
 
     let addTask = <AddTask columnId={this.props.id} />
     if (this.props.showTaskForm) {
-      addTask = <TaskForm columnId={this.props.id} />
+      addTask = <TaskForm columnId={this.props.id} purpose="add" />
     }
     return connectDropTarget(
       <section aria-label={`${this.props.name} column`} className={classes}>

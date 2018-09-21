@@ -3,9 +3,10 @@ import { connect } from 'react-redux';
 import { findDOMNode } from 'react-dom';
 import { DragSource, DropTarget } from 'react-dnd';
 import moment from 'moment';
-import { updateColumn, moveTask, deleteTask, hideTaskMenu, showTaskMenu } from '../actions/board-data';
+import { updateColumn, moveTask, deleteTask, hideTaskMenu, showTaskMenu, showEditForm, removeTask, pushTask } from '../actions/board-data';
 import { selectTask, stopSelect } from '../actions/timer';
 import { DropdownMenu } from './dropdown-menu';
+import TaskForm from './task-form';
 import './task.css';
 
 export class Task extends React.Component {
@@ -44,6 +45,54 @@ export class Task extends React.Component {
     };
     this.props.dispatch(updateColumn(this.props.columnId, updateData));
   }
+  handleEdit() {
+    this.props.dispatch(hideTaskMenu(this.props.columnId, this.props.taskId));
+    this.props.dispatch(showEditForm(this.props.taskId, this.props.columnId));
+  }
+  handleMoveRight() {
+    const { columnId, taskId } = this.props;
+    const colIndex = this.props.columns.findIndex(column => column.id === columnId) + 1;
+    if (colIndex < this.props.columns.length) {
+      const newColumnId = this.props.columns[colIndex].id;
+      const task = this.props.columns.find(column => column.id === columnId)
+      .tasks.find(task => task.id === taskId);
+      this.props.dispatch(removeTask(taskId, columnId));
+      this.props.dispatch(pushTask(task, newColumnId));
+      this.props.dispatch(hideTaskMenu(newColumnId, taskId));
+      
+      const newCol = this.props.columns[colIndex];
+      this.props.dispatch(updateColumn(newCol.id, {
+        tasks: newCol.tasks.map(task => task.id).concat([taskId])
+      }));
+      this.props.dispatch(updateColumn(columnId, {
+        tasks: this.props.columns.find(column => column.id === columnId).tasks.filter(task => task.id !== taskId).map(task => task.id)
+      }));
+    } else {
+      this.props.dispatch(hideTaskMenu(columnId, taskId));
+    }
+  }
+  handleMoveLeft() {
+    const { columnId, taskId } = this.props;
+    const colIndex = this.props.columns.findIndex(column => column.id === columnId) - 1;
+    if (colIndex >= 0) {
+      const newColumnId = this.props.columns[colIndex].id;
+      const task = this.props.columns.find(column => column.id === columnId)
+      .tasks.find(task => task.id === taskId);
+      this.props.dispatch(removeTask(taskId, columnId));
+      this.props.dispatch(pushTask(task, newColumnId));
+      this.props.dispatch(hideTaskMenu(newColumnId, taskId));
+      
+      const newCol = this.props.columns[colIndex];
+      this.props.dispatch(updateColumn(newCol.id, {
+        tasks: newCol.tasks.map(task => task.id).concat([taskId])
+      }));
+      this.props.dispatch(updateColumn(columnId, {
+        tasks: this.props.columns.find(column => column.id === columnId).tasks.filter(task => task.id !== taskId).map(task => task.id)
+      }));
+    } else {
+      this.props.dispatch(hideTaskMenu(columnId, taskId));
+    }
+  }
   render() {
     const { isDragging, connectDragSource, connectDropTarget } = this.props;
     const ariaHidden = (this.props.selectStatus === 'started') ? true : false;
@@ -81,36 +130,57 @@ export class Task extends React.Component {
       timeSpent = <span aria-hidden={ariaHidden}>Time spent: {duration}</span>
     }
 
-    return connectDragSource(connectDropTarget(
-      <div
-          id={this.props.taskId}
-          index={this.props.index}
-          className={containerClasses}
-          columnid={this.props.columnid}
-          onClick={() => this.handleTaskClick(this.props.taskId)}
-      >
-        <section className={taskClasses}>
-          <header>
-            {this.props.name}
-          </header>
-          {timeSpent}
-        </section>
-        <DropdownMenu
-          classes={menuClasses}
-          showMenu={this.props.showTaskMenu}
-          toggleMenu={() => this.toggleMenu()}
-          links={[
-            {
-              onClick: () => this.handleDelete(),
-              text: 'Delete',
-              href: "#app"
-            }
-          ]}
-          ariaHidden={ariaHidden}
-        />
-        <button aria-label={this.props.name} className="select-task" tabIndex="-1" aria-hidden="true"></button>
-      </div>
-    ));
+    if (!this.props.editing) {
+      return connectDragSource(connectDropTarget(
+        <div
+            id={this.props.taskId}
+            index={this.props.index}
+            className={containerClasses}
+            columnid={this.props.columnid}
+            onClick={() => this.handleTaskClick(this.props.taskId)}
+        >
+          <section className={taskClasses}>
+            <header>
+              {this.props.name}
+            </header>
+            {timeSpent}
+          </section>
+          <DropdownMenu
+            classes={menuClasses}
+            showMenu={this.props.showTaskMenu}
+            toggleMenu={() => this.toggleMenu()}
+            links={[
+              {
+                onClick: () => this.handleMoveRight(),
+                text: 'Move Right',
+                href: "#app"
+              },
+              {
+                onClick: () => this.handleMoveLeft(),
+                text: 'Move Left',
+                href: "#app"
+              },
+              {
+                onClick: () => this.handleEdit(),
+                text: 'Edit',
+                href: "#app"
+              },
+              {
+                onClick: () => this.handleDelete(),
+                text: 'Delete',
+                href: "#app"
+              }
+            ]}
+            ariaHidden={ariaHidden}
+          />
+          <button aria-label={this.props.name} className="select-task" tabIndex="-1" aria-hidden="true"></button>
+        </div>
+      ));
+    } else {
+      return (
+        <TaskForm taskId={this.props.taskId} columnId={this.props.columnId} purpose="edit" initValues={{"name": this.props.name}}/>
+      );
+    }
   }
 }
 

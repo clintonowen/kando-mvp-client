@@ -1,27 +1,48 @@
 import React from 'react';
 import {Field, reduxForm, focus} from 'redux-form';
 import Input from './input';
-import { hideTaskForm, addTask } from '../actions/board-data';
+import { hideTaskForm, addTask, hideEditForm, updateTask } from '../actions/board-data';
 import {required, nonEmpty} from '../validators';
 import './task-form.css';
 
 export class TaskForm extends React.Component {
+  componentDidMount() {
+    this.handleInitialize();
+  }
+  handleInitialize() {
+    let initData = (this.props.initValues) ? this.props.initValues : {};
+    this.props.initialize(initData);
+  }
   handleSubmit(values) {
-    this.props.dispatch(addTask(values.name, this.props.columnId));
-    this.props.dispatch(hideTaskForm(this.props.columnId));
+    if (this.props.purpose === 'add') {
+      this.props.dispatch(addTask(values.name, this.props.columnId));
+      this.props.dispatch(hideTaskForm(this.props.columnId));
+    }
+    if (this.props.purpose === 'edit') {
+      const updateData = {
+        "name": values.name
+      }
+      this.props.dispatch(updateTask(this.props.taskId, updateData));
+      this.props.dispatch(hideEditForm(this.props.taskId, this.props.columnId));
+    }
   }
   handleCancel() {
-    this.props.dispatch(hideTaskForm(this.props.columnId));
+    if (this.props.purpose === 'add') {
+      this.props.dispatch(hideTaskForm(this.props.columnId));
+    }
+    if (this.props.purpose === 'edit') {
+      this.props.dispatch(hideEditForm(this.props.taskId, this.props.columnId));
+    }
   }
   render() {
     let error;
-      if (this.props.error) {
-        error = (
-          <div className="form-error" aria-live="polite">
-            {this.props.error}
-          </div>
-        );
-      }
+    if (this.props.error) {
+      error = (
+        <div className="form-error" aria-live="polite">
+          {this.props.error}
+        </div>
+      );
+    }
     return (
       <form
         className="task-form"

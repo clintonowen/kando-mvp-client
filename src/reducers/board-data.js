@@ -6,6 +6,8 @@ import {
   MOVE_TASK,
   SHOW_TASK_FORM,
   HIDE_TASK_FORM,
+  SHOW_EDIT_FORM,
+  HIDE_EDIT_FORM,
   SHOW_TASK_MENU,
   HIDE_TASK_MENU,
   SET_TIMER_COLUMN,
@@ -115,6 +117,50 @@ export default function reducer(state = initialState, action) {
       columns: state.columns.map(column => {
         if (column.id === action.columnId) {
           return Object.assign({}, column, { showTaskForm: false })
+        } else {
+          return column;
+        }
+      })
+    });
+  }
+  if (action.type === SHOW_EDIT_FORM) {
+    const { taskId, columnId } = action;
+    return Object.assign({}, state, {
+      columns: state.columns.map(column => {
+        if (column.id === columnId) {
+          return Object.assign({}, column, { 
+            tasks: column.tasks.map(task => {
+              if (task.id === taskId) {
+                return Object.assign({}, task, {
+                  editing: true
+                });
+              } else {
+                return task;
+              }
+            })
+          });
+        } else {
+          return column;
+        }
+      })
+    });
+  }
+  if (action.type === HIDE_EDIT_FORM) {
+    const { taskId, columnId } = action;
+    return Object.assign({}, state, {
+      columns: state.columns.map(column => {
+        if (column.id === columnId) {
+          return Object.assign({}, column, { 
+            tasks: column.tasks.map(task => {
+              if (task.id === taskId) {
+                return Object.assign({}, task, {
+                  editing: false
+                });
+              } else {
+                return task;
+              }
+            })
+          });
         } else {
           return column;
         }
