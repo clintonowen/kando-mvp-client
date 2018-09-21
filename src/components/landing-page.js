@@ -28,23 +28,21 @@ export function LandingPage(props) {
       <p>
         <em>Personal Kanban</em> is a highly-visual approach to managing work that allows you to quickly get an overview of your task list, prioritize what needs to be done, and plan your day.
       </p>
-      <p>
-        The Basic Steps:
-        <ol>
-          <li>
-            Your <strong className="kando">KanDo</strong> board is split into four columns: <em>To-Do</em>, <em>Do Today</em>, <em>In Progress</em>, and <em>Done</em>. Step one is to create an overall list of tasks in the <em>To-Do</em> column. Ideally, any large or ongoing projects should be split up into separate, manageable tasks on your <strong className="kando">KanDo</strong> board.
-          </li>
-          <li>
-            At the start of each day, decide which tasks you'd like to accomplish and move them over to the next column, <em></em>Do Today.
-          </li>
-          <li>
-            Now you're ready to start working. Select your first task, move it to the <em>In Progress</em> column, and get busy. As you work, use the built-in <a href="#pomodoro-technique">Pomodoro Timer</a> to manage your time. Try to limit yourself to no more than 3 tasks at a time in your <em>In Progress</em> column—the idea is to focus on a task and get it <em>Done</em>.
-          </li>
-          <li>
-            As you complete tasks from your <em>In Progress</em> column, enjoy the satisfaction of moving them to the <em>Done</em> column. Nice work!
-          </li>
-        </ol>
-      </p>
+      <h4>The Basic Steps:</h4>
+      <ol>
+        <li>
+          Your <strong className="kando">KanDo</strong> board is split into four columns: <em>To-Do</em>, <em>Do Today</em>, <em>In Progress</em>, and <em>Done</em>. Step one is to create an overall list of tasks in the <em>To-Do</em> column. Ideally, any large or ongoing projects should be split up into separate, manageable tasks on your <strong className="kando">KanDo</strong> board.
+        </li>
+        <li>
+          At the start of each day, decide which tasks you'd like to accomplish and move them over to the next column, <em></em>Do Today.
+        </li>
+        <li>
+          Now you're ready to start working. Select your first task, move it to the <em>In Progress</em> column, and get busy. As you work, use the built-in <a href="#pomodoro-technique">Pomodoro Timer</a> to manage your time. Try to limit yourself to no more than 3 tasks at a time in your <em>In Progress</em> column—the idea is to focus on a task and get it <em>Done</em>.
+        </li>
+        <li>
+          As you complete tasks from your <em>In Progress</em> column, enjoy the satisfaction of moving them to the <em>Done</em> column. Nice work!
+        </li>
+      </ol>
       <hr></hr>
       <h3 id="pomodoro-technique">The Pomodoro Technique</h3>
       <p>
@@ -53,26 +51,24 @@ export function LandingPage(props) {
       <p>
         <em>The Pomodoro Technique</em> is a strategy for structuring your work and break sessions at regular intervals in order to stay at peak performance throughout the day.
       </p>
-      <p>
-        The Basic Steps:
-        <ol>
-          <li>
-            Select a task from your <strong className="kando">KanDo</strong> board to work on.
-          </li>
-          <li>
-            Start the Pomodoro Timer and aim to spend <em>25 uninterrupted minutes</em> focused on the selected task.
-          </li>
-          <li>
-            When the Timer finishes, take a <em>5-minute break</em>. Meditate, stretch, go for a walk—however you prefer to recharge, the goal is to avoid anything work-related.
-          </li>
-          <li>
-            Once your break is over, begin your next <em>Pomodoro</em> (25 minutes of work followed by a 5-minute break).
-          </li>
-          <li>
-            After every 4th work session, take a longer, <em>15 to 30-minute break</em>. Not only will this let you rest up for the next round of Pomodoros, but it allows you to properly digest and reflect upon your work—you may find that your best ideas or revelations come during these extended breaks.
-          </li>
-        </ol>
-      </p>
+      <h4>The Basic Steps:</h4>
+      <ol>
+        <li>
+          Select a task from your <strong className="kando">KanDo</strong> board to work on.
+        </li>
+        <li>
+          Start the Pomodoro Timer and aim to spend <em>25 uninterrupted minutes</em> focused on the selected task.
+        </li>
+        <li>
+          When the Timer finishes, take a <em>5-minute break</em>. Meditate, stretch, go for a walk—however you prefer to recharge, the goal is to avoid anything work-related.
+        </li>
+        <li>
+          Once your break is over, begin your next <em>Pomodoro</em> (25 minutes of work followed by a 5-minute break).
+        </li>
+        <li>
+          After every 4th work session, take a longer, <em>15 to 30-minute break</em>. Not only will this let you rest up for the next round of Pomodoros, but it allows you to properly digest and reflect upon your work—you may find that your best ideas or revelations come during these extended breaks.
+        </li>
+      </ol>
       <hr></hr>
       <section className="newuser-link">
       Congratulations! You're now ready to do more with <strong className="kando">KanDo</strong>.<br></br>
