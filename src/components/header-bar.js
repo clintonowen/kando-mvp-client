@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 // import MediaQuery from 'react-responsive';
 import { clearAuth } from '../actions/auth';
+import { deleteUser } from '../actions/users';
 import { clearAuthToken } from '../local-storage';
 import { showNavMenu, hideNavMenu } from '../actions/activity';
 import { setTimerColumn, unsetTimerColumn } from '../actions/board-data';
@@ -34,6 +35,9 @@ export class HeaderBar extends React.Component {
   }
   handleLogOut() {
     this.hideMenu();
+    if (this.props.user.username.slice(0,5) === 'd3m0-') {
+      this.props.dispatch(deleteUser());
+    }
     this.props.dispatch(clearAuth());
     clearAuthToken();
   }
@@ -101,7 +105,8 @@ export class HeaderBar extends React.Component {
 
 const mapStateToProps = state => ({
   showNavMenu: state.activity.showNavMenu,
-  columns: state.boardData.columns
+  columns: state.boardData.columns,
+  user: state.auth.currentUser
 });
 
 export default withRouter(connect(mapStateToProps)(HeaderBar));

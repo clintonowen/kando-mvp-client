@@ -77,3 +77,11 @@
 .login-link {
   text-align: center;
 }
+
+.demo-login {
+  display: block;
+  margin-bottom: 5px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 5px;
+}
