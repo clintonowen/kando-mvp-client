@@ -116,7 +116,7 @@ export const fetchColumns = () => (dispatch, getState) => {
   return fetch(`${API_BASE_URL}/columns`, {
     method: 'GET',
     headers: {
-        'Authorization': `Bearer ${authToken}`
+      'Authorization': `Bearer ${authToken}`
     }
   })
   .then(res => normalizeResponseErrors(res))

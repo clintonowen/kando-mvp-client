@@ -64,27 +64,27 @@ export const login = (username, password) => dispatch => {
         new SubmissionError({
           _error: message
         })
-        );
-      })
       );
-    };
+    })
+  );
+};
     
-    export const refreshAuthToken = () => (dispatch, getState) => {
-      dispatch(authRequest());
-      const authToken = getState().auth.authToken;
-      return fetch(`${API_BASE_URL}/auth/refresh`, {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${authToken}`
-        }
-      })
-      .then(res => normalizeResponseErrors(res))
-      .then(res => res.json())
-      .then(({authToken}) => storeAuthInfo(authToken, dispatch))
-      .catch(err => {
-        dispatch(authError(err));
-        dispatch(clearAuth());
-        clearAuthToken(authToken);
-      });
-    };
+export const refreshAuthToken = () => (dispatch, getState) => {
+  dispatch(authRequest());
+  const authToken = getState().auth.authToken;
+  return fetch(`${API_BASE_URL}/auth/refresh`, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${authToken}`
+    }
+  })
+  .then(res => normalizeResponseErrors(res))
+  .then(res => res.json())
+  .then(({authToken}) => storeAuthInfo(authToken, dispatch))
+  .catch(err => {
+    dispatch(authError(err));
+    dispatch(clearAuth());
+    clearAuthToken(authToken);
+  });
+};
     

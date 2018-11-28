@@ -2,10 +2,11 @@ import React from 'react';
 import {connect} from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 import { Field, reduxForm, focus } from 'redux-form';
-import { registerUser } from '../actions/users';
+import { registerUser, registerDemo } from '../actions/users';
 import { login } from '../actions/auth';
 import { noEmail, noUser, noPass, noConfirm, isTrimmed, 
   userLength, passLength, matches, goodChars, goodEmail } from '../validators';
+import { makeId } from '../actions/utils';
 import Input from './input';
 import './signup-form.css';
 const matchesPassword = matches('password');
@@ -17,6 +18,19 @@ export class SignupForm extends React.Component {
     return this.props
       .dispatch(registerUser(user))
       .then(() => this.props.dispatch(login(values.username, values.password)));
+  }
+
+  handleDemo(){
+    const username = `d3m0-${makeId()}`;
+    const user = {
+      username,
+      email: 'demo@demo.com',
+      password: 'password',
+      confirmPwd: 'password',
+      demo: true
+    }
+    return this.props.dispatch(registerDemo(user))
+      .then(() => this.props.dispatch(login(username, 'password')));
   }
   
   render() {
@@ -81,6 +95,13 @@ export class SignupForm extends React.Component {
         <section className="login-link">
           <p>
             Already have an account? <Link to="/login">Log in here</Link>
+          </p>
+          <p>
+            Just want to give KanDo a test run?
+            <button className="demo-login" onClick={() => this.handleDemo()}>
+              Log in to a demo account
+            </button>
+            <em style={{fontSize: '0.8em'}}>(Demo account data not saved)</em>
           </p>
         </section>
       </main>

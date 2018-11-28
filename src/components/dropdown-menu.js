@@ -1,18 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
+import { makeId } from '../actions/utils';
 import './dropdown-menu.css';
 
 export class DropdownMenu extends React.Component {
-  makeId() {
-    let text = "";
-    const possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-
-    for (var i = 0; i < 24; i++)
-      text += possible.charAt(Math.floor(Math.random() * possible.length));
-
-    return text;
-  }
   render() {
     const menu = (this.props.showMenu && this.props.links)
       ? (
@@ -21,7 +13,7 @@ export class DropdownMenu extends React.Component {
             {this.props.links.map((link) => {
               if (link.isLink) {
                 return (
-                  <li key={this.makeId()}>
+                  <li key={makeId()}>
                     <Link to={link.href} onClick={() => link.onClick()}>
                       {link.text}
                     </Link>
@@ -29,7 +21,7 @@ export class DropdownMenu extends React.Component {
                 );
               } else {
                 return (
-                  <li key={this.makeId()}>
+                  <li key={makeId()}>
                     <a href={link.href} onClick={() => link.onClick()}>
                       {link.text}
                     </a>

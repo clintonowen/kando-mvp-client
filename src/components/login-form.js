@@ -4,12 +4,27 @@ import { Link, Redirect } from 'react-router-dom';
 import { Field, reduxForm, focus } from 'redux-form';
 import Input from './input';
 import { login } from '../actions/auth';
+import { registerDemo } from '../actions/users';
 import { required, nonEmpty } from '../validators';
+import { makeId } from '../actions/utils';
 import './login-form.css';
 
 export class LoginForm extends React.Component {
   onSubmit(values){
     return this.props.dispatch(login(values.username, values.password));
+  }
+
+  handleDemo(){
+    const username = `d3m0-${makeId()}`;
+    const user = {
+      username,
+      email: 'demo@demo.com',
+      password: 'password',
+      confirmPwd: 'password',
+      demo: true
+    }
+    return this.props.dispatch(registerDemo(user))
+      .then(() => this.props.dispatch(login(username, 'password')));
   }
   
   render() {
@@ -58,6 +73,13 @@ export class LoginForm extends React.Component {
         <section className="signup-link">
           <p>
             New user? <Link to="/signup">Sign up here</Link>
+          </p>
+          <p>
+            Just want to give KanDo a test run?
+            <button className="demo-login" onClick={() => this.handleDemo()}>
+              Log in to a demo account
+            </button>
+            <em style={{fontSize: '0.8em'}}>(Demo account data not saved)</em>
           </p>
         </section>
       </main>
