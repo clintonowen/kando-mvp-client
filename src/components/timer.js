@@ -43,7 +43,7 @@ export class Timer extends React.Component {
           this.handleBreaktime();
         }
       }
-    }, 20);
+    }, 1000);
   }
   handleBreaktime() {
     this.props.dispatch(breakTime());
@@ -56,7 +56,7 @@ export class Timer extends React.Component {
       if (this.props.timeLeft <= 0) {
         this.handleClearTimers();
       }
-    }, 20);
+    }, 1000);
   }
   handleClearTimers() {
     clearInterval(this.timerInterval);
